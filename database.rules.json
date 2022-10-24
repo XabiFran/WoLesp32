@@ -1,0 +1,11 @@
+{
+  "rules": {
+    "UsersData" :{
+      "$uid" : {
+    		".read": "$uid == auth.uid",  // 2022-8-5
+    		".write": "$uid == auth.uid",  // 2022-8-5
+  
+    	}
+    }
+  }
+}
