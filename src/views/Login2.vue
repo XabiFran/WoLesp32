@@ -46,8 +46,8 @@ export default {
 
   methods: {
     loginUser() {
-      let v = this;
-      v.xhrRequest = true;
+      let r = this;
+      r.xhrRequest = true;
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)
@@ -57,7 +57,7 @@ export default {
             this.$router.replace('feed');
           },
           (err) => {
-            v.xhrRequest = false;
+            r.xhrRequest = false;
             console.log(`Error - ${err.message}`);
           }
         );

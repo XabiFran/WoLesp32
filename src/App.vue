@@ -41,7 +41,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn icon to="/login2">
+      <v-btn icon to="/feed">
         <v-icon>mdi-heart</v-icon>
       </v-btn>
 
@@ -58,7 +58,8 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn icon @click="handleSignOut()" v-if="isLoggedIn">
+      <v-btn icon @click="handleSignOut"
+        ><!--v-if="isLoggedIn"-->
         <v-icon>mdi-logout</v-icon>
       </v-btn>
     </v-app-bar>
@@ -70,29 +71,32 @@
 </template>
 
 <script>
-import { onMounted, ref} from "vue";
-import { getAuth, onAuthStateChanged, signOut} from "firebase/auth";
-import router from './router';
+import { onMounted, ref } from "vue";
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import router from "./router";
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 const isLoggedIn = ref(false);
 let auth;
 onMounted(() => {
   auth = getAuth();
-  onAuthStateChanged(auth, user =>{
-    if (user){
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
       isLoggedIn.value = true;
     } else {
       isLoggedIn.value = false;
     }
-  }
-  )
-})
+  });
+});
 
 const handleSignOut = () => {
-  signOut(auth).then(()=>{
+  console.log("Entré en la función de salir");
+  signOut(auth).then(() => {
     router.push("/");
-  })
-}
+  });
+};
 
 export default {
   data: () => ({
@@ -103,10 +107,25 @@ export default {
     ],
     options: [
       { title: "Sign in", to: "/sign-up2" },
-      { title: "Login", to: "/login" },
+      { title: "Login", to: "/login2" },
       { title: "Feed", to: "/feed" },
       { title: "Sign Out", to: "/" },
     ],
   }),
+
+  methods: {
+    handleSignOut() {
+      console.log("Entré en la función de salir");
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          this.$router.replace("login2");
+        })
+        .catch((err) => {
+          console.log(`Error - ${err.message}`);
+        });
+    },
+  },
 };
 </script>

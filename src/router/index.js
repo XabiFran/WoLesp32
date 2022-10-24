@@ -1,6 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import PCs from "../views/PCs.vue";
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
 Vue.use(VueRouter);
 
@@ -19,7 +22,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
-  { path: "/feed", component: () => import("../views/Feed.vue") },
+  { path: "/feed", component: () => import("../views/Feed.vue"), meta: {requiresAuth: true} },
   { path: "/login", component: () => import("../views/Login.vue") },
   { path: "/sign-in", component: () => import("../views/SignIn.vue") },
   { path: "/login2", component: () => import("../views/Login2.vue") },
@@ -28,6 +31,15 @@ const routes = [
 
 const router = new VueRouter({
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  const authenticatedUser = firebase.auth().currentUser;
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+  if(requiresAuth && ! authenticatedUser) next('login2')
+  else next()
+
 });
 
 export default router;
