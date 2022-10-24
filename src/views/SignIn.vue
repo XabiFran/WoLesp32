@@ -11,7 +11,7 @@
 <script setup>
 import { ref } from "vue";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import  useRouter  from "c:/Users/javie/Documents/wolesp-vuefire/src/router/index";
+import  useRouter  from "../router/index";
 
 const email = ref("");
 const password = ref("");
