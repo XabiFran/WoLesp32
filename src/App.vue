@@ -78,7 +78,7 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
-const isLoggedIn = ref(false);
+/*const isLoggedIn = ref(false);
 let auth;
 onMounted(() => {
   auth = getAuth();
@@ -89,14 +89,14 @@ onMounted(() => {
       isLoggedIn.value = false;
     }
   });
-});
+}); 
 
 const handleSignOut = () => {
   console.log("Entré en la función de salir");
   signOut(auth).then(() => {
     router.push("/");
   });
-};
+};*/
 
 export default {
   data: () => ({
@@ -129,3 +129,14 @@ export default {
   },
 };
 </script>
+
+<style>
+  /* This is for documentation purposes and will not be needed in your application */
+  #create .v-speed-dial {
+    position: absolute;
+  }
+
+  #create .v-btn--floating {
+    position: relative;
+  }
+</style>
