@@ -1,7 +1,7 @@
 <template>
   <div class="PCs">
     <v-list flat class="pt-0">
-      <div v-for="pc in pcList" :key="pc.id">
+      <div v-for="pc in this.$store.state.pcList" :key="pc.id">
         <v-list-item
           @click="modificarEstado(pc.id)"
           :class="{ 'green lighten-5': pc.on }"
@@ -23,6 +23,9 @@
               <v-list-item-subtitle>{{ pc.mac }}</v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
+              <v-btn icon @click.stop="setEditModal(pc)">
+                <v-icon color="blue-grey lighten-1">mdi-pencil</v-icon>
+              </v-btn>
               <v-btn v-if="showDelete" icon @click.stop="deletePC(pc.id)">
                 <v-icon color="red lighten-2">mdi-close-thick</v-icon>
               </v-btn>
@@ -54,7 +57,7 @@
         <v-btn fab dark small color="green">
           <v-icon>mdi-pencil</v-icon>
         </v-btn>
-        <v-btn fab dark small color="indigo" @click="dialog = !dialog">
+        <v-btn fab dark small color="indigo" @click="dialog1 = !dialog1">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
         <v-btn fab dark small color="red" @click="showDelete = !showDelete">
@@ -63,7 +66,7 @@
       </v-speed-dial>
     </div>
     <!--EL Modal de añadir-->
-    <v-dialog v-model="dialog" max-width="500px">
+    <v-dialog v-model="dialog1" max-width="500px">
       <v-card>
         <v-card-title>
           <span class="text-h5">Add PC</span>
@@ -82,8 +85,37 @@
             text
             color="primary"
             @click="
-              dialog = false;
+              dialog1 = false;
               addPC();
+            "
+            >Submit</v-btn
+          >
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!--EL Modal de editar-->
+    <v-dialog v-model="dialog2" max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">Edit PC</span>
+        </v-card-title>
+        <v-card-text>
+          <v-text-field label="File name" v-model="thisPCTitle"></v-text-field>
+          <v-text-field label="MAC Address" v-model="thisPCMAC"></v-text-field>
+
+          <small class="grey--text">* MAC Format: AA:BB:CC:DD:EE:FF</small>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            text
+            color="primary"
+            @click="
+              dialog2 = false;
+              updatePC(thisPCID);
             "
             >Submit</v-btn
           >
@@ -98,7 +130,8 @@ export default {
   name: "Home",
   data() {
     return {
-      dialog: false,
+      dialog1: false,
+      dialog2: false,
 
       showDelete: false,
 
@@ -115,46 +148,54 @@ export default {
 
       newPCMAC: "00:00:00:00:00:00",
       newPCTitle: "hola",
-      pcList: [
-        {
-          id: 1,
-          title: "PC de Jaime",
-          mac: "none",
-          on: true,
-        },
-        {
-          id: 2,
-          title: "PC de Xabi",
-          mac: "none",
-          on: false,
-        },
-        {
-          id: 3,
-          title: "PC de Frades",
-          mac: "none",
-          on: false,
-        },
-      ],
+
+      thisPCMAC: "",
+      thisPCTitle: "",
+      thisPCID: "",
     };
   },
   methods: {
     modificarEstado(id) {
-      let pc = this.pcList.filter((pc) => pc.id === id)[0];
+      let pc = this.$store.state.pcList.filter((pc) => pc.id === id)[0];
       pc.on = !pc.on;
     },
     deletePC(id) {
-      this.pcList = this.pcList.filter((pc) => pc.id !== id);
+      this.$store.state.pcList = this.$store.state.pcList.filter(
+        (pc) => pc.id !== id
+      );
     },
     addPC() {
-      let newPC = {
+      this.$store.commit("addPC", {
         id: Date.now(),
         title: this.newPCTitle,
         mac: this.newPCMAC,
         on: false,
-      };
-      this.pcList.push(newPC);
+      });
+
       this.newPCTitle = "";
       this.newPCMAC = "";
+    },
+    setEditModal(pc) {
+      this.thisPCTitle = pc.title;
+      this.thisPCMAC = pc.mac;
+      this.thisPCID = pc.id;
+      this.dialog2 = !this.dialog2;
+    },
+    updatePC(id) {
+      let pc = this.$store.state.pcList.filter((pc) => pc.id === id)[0];
+      console.log("Ordenador a actualizar id: ", this.id, " title: ", this.title);
+      this.$store.commit("updatePC", {
+        id: this.id,
+        title: this.title,
+        mac: this.mac,
+        on: this.on,
+      });
+
+      const index = this.$store.pcList.findIndex((PC) => PC.id === this.id);
+      this.$store.pcList.splice(index, 1, {
+        id: this.id,
+        title: this.title,
+      });
     },
   },
 };
