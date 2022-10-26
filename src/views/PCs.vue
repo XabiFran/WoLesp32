@@ -9,6 +9,7 @@
           <template v-slot:default>
             <v-list-item-action>
               <v-switch
+                inset
                 :input-value="pc.on"
                 color="light-green accent-4"
               ></v-switch>
