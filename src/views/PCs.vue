@@ -152,6 +152,7 @@ export default {
       thisPCMAC: "",
       thisPCTitle: "",
       thisPCID: "",
+      thisPCOn: false,
     };
   },
   methods: {
@@ -179,23 +180,33 @@ export default {
       this.thisPCTitle = pc.title;
       this.thisPCMAC = pc.mac;
       this.thisPCID = pc.id;
+      this.thisPCOn = pc.on;
       this.dialog2 = !this.dialog2;
     },
     updatePC(id) {
       let pc = this.$store.state.pcList.filter((pc) => pc.id === id)[0];
-      console.log("Ordenador a actualizar id: ", this.id, " title: ", this.title);
+      console.log("Ordenador a actualizar id: ", id, " title: ");
+      
+      /*this.$store.state.pcList.splice(id-1, 1, {
+      title: this.thisPCTitle,
+      id: this.thisPCID,
+      mac: this.thisPCMAC,
+      on: this.thisPCOn,});*/
+
+
       this.$store.commit("updatePC", {
+        title: this.thisPCTitle,
+        id: this.thisPCID,
+        mac: this.thisPCMAC,
+        on: this.thisPCOn,
+      });
+
+      /*this.$store.commit("updatePC", {
         id: this.id,
         title: this.title,
         mac: this.mac,
         on: this.on,
-      });
-
-      const index = this.$store.pcList.findIndex((PC) => PC.id === this.id);
-      this.$store.pcList.splice(index, 1, {
-        id: this.id,
-        title: this.title,
-      });
+      });*/
     },
   },
 };

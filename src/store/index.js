@@ -36,6 +36,18 @@ export default new Vuex.Store({
         mac: PC.mac,
         on: PC.on,
       });
+    },
+    updatePC(state, PC){
+      const id = PC.id;
+      const index = state.pcList.indexOf(state.pcList.filter((pc) => pc.id === id)[0]);
+
+      console.log("El índice de este elemento en el array es el: ", index);
+
+      state.pcList.splice(index, 1, {
+        title: PC.title,
+        id: PC.id,
+        mac: PC.mac,
+        on: PC.on,});
     }
   },
   actions: {
