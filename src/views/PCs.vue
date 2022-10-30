@@ -21,6 +21,7 @@
                 {{ pc.title }}</v-list-item-title
               >
               <v-list-item-subtitle>{{ pc.mac }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ pc.timestamp.toDate() }}</v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-action>
               <v-btn icon @click.stop="setEditModal(pc)">
@@ -155,21 +156,23 @@ export default {
       thisPCTitle: "",
       thisPCID: "",
       thisPCOn: false,
+      thisPCTimestamp: "",
     };
   },
   methods: {
     modificarEstado(id) {
-      this.$store.commit("turnOnPC", id);
+      this.$store.dispatch("turnOnPC", id);
     },
     deletePC(id) {
-      this.$store.commit("deletePC", id);
+      this.$store.dispatch("deletePC", id);
     },
     addPC() {
-      this.$store.commit("addPC", {
+      this.$store.dispatch("addPC", {
         id: Date.now(),
         title: this.newPCTitle,
         mac: this.newPCMAC,
         on: false,
+        timestamp: Date.now(),
       });
 
       this.newPCTitle = "";
@@ -180,10 +183,11 @@ export default {
       this.thisPCMAC = pc.mac;
       this.thisPCID = pc.id;
       this.thisPCOn = pc.on;
+      this.thisPCTimestamp = pc.timestamp;
       this.dialog2 = !this.dialog2;
     },
     updatePC(id) {
-      this.$store.commit("updatePC", {
+      this.$store.dispatch("updatePC", {
         title: this.thisPCTitle,
         id: this.thisPCID,
         mac: this.thisPCMAC,

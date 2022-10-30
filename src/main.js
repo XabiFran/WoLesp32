@@ -48,3 +48,11 @@ new Vue({
   vuetify,
   render: h => h(App)
 }).$mount('#app')
+
+auth.onAuthStateChanged(user=>{
+  console.log("print del user desde el main ",user);
+  if(user)
+  store.commit('setAuthorization', true);
+  else
+  store.commit('setAuthorization', false);
+})

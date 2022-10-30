@@ -11,25 +11,28 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    autorized: true,
+    autorized: null,
     pcList: [
       {
         id: 1,
         title: "PC de Luis",
         mac: "00:00:00:00:00:00",
         on: true,
+        timestamp: new Date(),
       },
       {
         id: 2,
         title: "PC de Xabi",
         mac: "00:00:00:00:00:00",
         on: false,
+        timestamp: new Date(),
       },
       {
         id: 3,
         title: "PC de Frades",
         mac: "00:00:00:00:00:00",
         on: false,
+        timestamp: new Date(),
       },
     ],
   },
@@ -44,6 +47,7 @@ export default new Vuex.Store({
         title: PC.title,
         mac: PC.mac,
         on: PC.on,
+        timestamp: PC.timestamp,
       });
     },
     updatePC(state, PC) {
@@ -57,6 +61,7 @@ export default new Vuex.Store({
         id: PC.id,
         mac: PC.mac,
         on: PC.on,
+        timestamp: PC.timestamp,
       });
     },
     turnOnPC(state, id) {
@@ -72,10 +77,81 @@ export default new Vuex.Store({
   },
   actions: {
     retrievePCs(context) {
-      auth.onAuthStateChanged((user) => {
-        console.log("Si esto es null, no estás logueado: ", user);
-      });
-      const PCdb = collection(db, "PCs");
+      db.collection("PCs")
+        .get()
+        .then((snapshot) => {
+          let tempPCs = [];
+          snapshot.forEach((doc) => {
+            const data = {
+              id: doc.id,
+              mac: doc.data().mac,
+              title: doc.data().title,
+              on: doc.data().on,
+              timestamp: doc.data().timestamp,
+            };
+            tempPCs.push(data);
+          });
+          const tempPCsSorted = tempPCs.sort((a, b) => {
+            return a.timestamp.seconds - b.timestamp.seconds;
+          });
+          context.commit("retrievePCs", tempPCsSorted);
+        });
+    },
+
+    addPC(context, PC) {
+      db.collection("PCs")
+        .add({
+          title: PC.title,
+          on: PC.on,
+          mac: PC.mac,
+          timestamp: new Date(),
+        })
+        .then((docRef) => {
+          context.commit("addPC", {
+            title: PC.title,
+            on: PC.on,
+            mac: PC.mac,
+            id: docRef.id,
+            timestamp: PC.timestamp,
+          });
+        });
+    },
+
+    turnOnPC(context, id) {
+      db.collection("PCs")
+        .doc(id)
+        .get()
+        .then((doc) => {
+          console.log("Hasta aqui llegué");
+          return doc.ref.update({ on: !doc.data().on });
+        })
+        .then(() => {
+          context.commit("turnOnPC", id);
+        });
+    },
+
+    deletePC(context, id) {
+      db.collection("PCs")
+        .doc(id)
+        .delete()
+        .then(() => {
+          context.commit("deletePC", id);
+        });
+    },
+
+    updatePC(context, PC) {
+      db.collection("PCs")
+        .doc(PC.id)
+        .set({
+          title: PC.title,
+          on: PC.on,
+          mac: PC.mac,
+          id: PC.id,
+          timestamp: new Date(),
+        })
+        .then(() => {
+          context.commit("updatePC", PC);
+        });
     },
   },
 
