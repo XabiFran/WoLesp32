@@ -1,11 +1,7 @@
 <template>
   <form class="form1 pa-6" @submit.prevent="signupRequest">
     <H1>SIGN UP</H1>
-    <v-text-field
-      v-model="email"
-      label="E-mail"
-      required
-    ></v-text-field>
+    <v-text-field v-model="email" label="E-mail" required></v-text-field>
 
     <v-text-field
       v-model="password"
@@ -27,6 +23,8 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
+import { auth, db } from "../main";
+
 export default {
   data() {
     return {
@@ -35,29 +33,26 @@ export default {
       password: "",
       xhrRequest: false,
       rules: {
-          required: value => !!value || 'Required.',
-          min: v => v.length >= 8 || 'Min 8 characters',
-          emailMatch: () => (`The email and password you entered don't match`),
-        },
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 8 || "Min 8 characters",
+        emailMatch: () => `The email and password you entered don't match`,
+      },
     };
   },
 
   methods: {
     signupRequest() {
-        let v = this;
-        v.xhrRequest = true;
-      firebase
-        .auth()
+      let v = this;
+      v.xhrRequest = true;
+      auth
         .createUserWithEmailAndPassword(this.email, this.password)
-        .then(
-          () => {
-            this.$router.replace('login2');
-          },
-          (err) => {
-            v.xhrRequest = false;
-            alert(`Error - ${err.message}`);
-          }
-        );
+        .then((cred) => {
+          this.$router.replace("login2");
+        })
+        .catch((err) => {
+          v.xhrRequest = false;
+          alert(`Error - ${err.message}`);
+        });
     },
   },
 };

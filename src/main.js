@@ -1,11 +1,12 @@
 import Vue from 'vue'
-import App from './App.vue'
+import App from './App.vue' 
 import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import 'firebase/firestore';
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
@@ -29,7 +30,15 @@ const firebaseConfig = {
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
-const auth = getAuth(firebaseApp);
+const firestore = firebaseApp.firestore();
+
+export const auth = firebase.auth();
+
+export const db = firebase.firestore();
+
+db.settings({ timestampInSnapshots: true });
+
+export default firestore;
 
 Vue.config.productionTip = false
 

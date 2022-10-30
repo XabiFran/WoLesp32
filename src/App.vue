@@ -58,8 +58,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn icon @click="handleSignOut"
-        ><!--v-if="isLoggedIn"-->
+      <v-btn icon @click="handleSignOut" v-if="this.$store.state.autorized">
         <v-icon>mdi-logout</v-icon>
       </v-btn>
     </v-app-bar>
@@ -71,36 +70,21 @@
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
-import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+//import { onMounted, ref } from "vue";
+//import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import router from "./router";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
-/*const isLoggedIn = ref(false);
-let auth;
-onMounted(() => {
-  auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      isLoggedIn.value = true;
-    } else {
-      isLoggedIn.value = false;
-    }
-  });
-}); 
+import { auth, db } from "./main";
 
-const handleSignOut = () => {
-  console.log("Entré en la función de salir");
-  signOut(auth).then(() => {
-    router.push("/");
-  });
-};*/
+
 
 export default {
   data: () => ({
     drawer: null,
+    isLogged: false,
     items: [
       { title: "PCs", icon: "mdi-format-list-checks", to: "/" },
       { title: "About", icon: "mdi-help-box", to: "/about" },
@@ -109,25 +93,38 @@ export default {
       { title: "Sign in", to: "/sign-up2" },
       { title: "Login", to: "/login2" },
       { title: "Feed", to: "/feed" },
-      { title: "Sign Out", to: "/" },
+      { title: "Sign Out", to: "/"},
     ],
   }),
 
   methods: {
     handleSignOut() {
       console.log("Entré en la función de salir");
-      firebase
-        .auth()
+      auth
         .signOut()
         .then(() => {
+          this.$store.commit('setAuthorization', false);
           this.$router.replace("login2");
         })
         .catch((err) => {
           console.log(`Error - ${err.message}`);
         });
     },
+    userAuthChange() {
+      auth.onAuthStateChanged((user) => {
+        console.log(user);
+      });
+    },
   },
+
+  created(){
+    if(firebase.user)
+    this.isLogged = true;
+    else
+    this.isLogged = false;
+  }
 };
+
 </script>
 
 <style>

@@ -5,8 +5,6 @@
       v-model="email"
       label="E-mail"
       required
-      @input="$v.email.$touch()"
-      @blur="$v.email.$touch()"
     ></v-text-field>
 
     <v-text-field
@@ -29,6 +27,8 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 
+import { auth, db } from "../main";
+
 export default {
   data() {
     return {
@@ -37,10 +37,10 @@ export default {
       password: "",
       xhrRequest: false,
       rules: {
-          required: value => !!value || 'Required.',
-          min: v => v.length >= 8 || 'Min 8 characters',
-          emailMatch: () => (`The email and password you entered don't match`),
-        },
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 8 || "Min 8 characters",
+        emailMatch: () => `The email and password you entered don't match`,
+      },
     };
   },
 
@@ -48,19 +48,17 @@ export default {
     loginUser() {
       let r = this;
       r.xhrRequest = true;
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then(
-          () => {
-            alert("login");
-            this.$router.replace('feed');
-          },
-          (err) => {
-            r.xhrRequest = false;
-            console.log(`Error - ${err.message}`);
-          }
-        );
+      auth.signInWithEmailAndPassword(this.email, this.password).then(
+        () => {
+          alert("login");
+          this.$store.commit('setAuthorization', true);
+          this.$router.replace("feed");
+        },
+        (err) => {
+          r.xhrRequest = false;
+          console.log(`Error - ${err.message}`);
+        }
+      );
     },
   },
 };

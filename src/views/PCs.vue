@@ -126,7 +126,9 @@
 </template>
 
 <script>
+
 export default {
+  
   name: "Home",
   data() {
     return {
@@ -157,13 +159,10 @@ export default {
   },
   methods: {
     modificarEstado(id) {
-      let pc = this.$store.state.pcList.filter((pc) => pc.id === id)[0];
-      pc.on = !pc.on;
+      this.$store.commit("turnOnPC", id);
     },
     deletePC(id) {
-      this.$store.state.pcList = this.$store.state.pcList.filter(
-        (pc) => pc.id !== id
-      );
+      this.$store.commit("deletePC", id);
     },
     addPC() {
       this.$store.commit("addPC", {
@@ -184,31 +183,17 @@ export default {
       this.dialog2 = !this.dialog2;
     },
     updatePC(id) {
-      let pc = this.$store.state.pcList.filter((pc) => pc.id === id)[0];
-      console.log("Ordenador a actualizar id: ", id, " title: ");
-      
-      /*this.$store.state.pcList.splice(id-1, 1, {
-      title: this.thisPCTitle,
-      id: this.thisPCID,
-      mac: this.thisPCMAC,
-      on: this.thisPCOn,});*/
-
-
       this.$store.commit("updatePC", {
         title: this.thisPCTitle,
         id: this.thisPCID,
         mac: this.thisPCMAC,
         on: this.thisPCOn,
       });
-
-      /*this.$store.commit("updatePC", {
-        id: this.id,
-        title: this.title,
-        mac: this.mac,
-        on: this.on,
-      });*/
     },
   },
+  created(){
+    this.$store.dispatch('retrievePCs');
+  }
 };
 </script>
 
