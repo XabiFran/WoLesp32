@@ -37,13 +37,13 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn icon>
+      <!--<v-btn icon>
         <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      </v-btn> -->
 
-      <v-btn icon to="/feed">
+      <!--<v-btn icon to="/feed">
         <v-icon>mdi-heart</v-icon>
-      </v-btn>
+      </v-btn>-->
 
       <v-menu bottom left>
         <template v-slot:activator="{ on, attrs }">
@@ -79,8 +79,6 @@ import "firebase/compat/firestore";
 
 import { auth, db } from "./main";
 
-
-
 export default {
   data: () => ({
     drawer: null,
@@ -92,8 +90,7 @@ export default {
     options: [
       { title: "Sign in", to: "/sign-up2" },
       { title: "Login", to: "/login2" },
-      { title: "Feed", to: "/feed" },
-      { title: "Sign Out", to: "/"},
+      { title: "Sign Out", to: "/" },
     ],
   }),
 
@@ -103,7 +100,7 @@ export default {
       auth
         .signOut()
         .then(() => {
-          this.$store.commit('setAuthorization', false);
+          this.$store.commit("setAuthorization", false);
           this.$router.replace("login2");
         })
         .catch((err) => {
@@ -117,14 +114,13 @@ export default {
     },
   },
 
-  created(){
-    if(firebase.user)
-    this.isLogged = true;
-    else
-    this.isLogged = false;
-  }
+  created() {
+    auth.onAuthStateChanged((user) => {
+      if (user) this.isLogged = true;
+      else this.isLogged = false;
+    });
+  },
 };
-
 </script>
 
 <style>

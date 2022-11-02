@@ -52,7 +52,7 @@ export default {
         () => {
           alert("login");
           this.$store.commit('setAuthorization', true);
-          this.$router.replace("feed");
+          this.$router.replace("/");
         },
         (err) => {
           r.xhrRequest = false;

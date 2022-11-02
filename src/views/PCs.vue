@@ -3,7 +3,7 @@
     <v-list flat class="pt-0">
       <div v-for="pc in this.$store.state.pcList" :key="pc.id">
         <v-list-item
-          @click="modificarEstado(pc.id)"
+          
           :class="{ 'green lighten-5': pc.on }"
         >
           <template v-slot:default>
@@ -12,6 +12,7 @@
                 inset
                 :input-value="pc.on"
                 color="light-green accent-4"
+                @click="modificarEstado(pc.id)"
               ></v-switch>
             </v-list-item-action>
 
@@ -21,7 +22,7 @@
                 {{ pc.title }}</v-list-item-title
               >
               <v-list-item-subtitle>{{ pc.mac }}</v-list-item-subtitle>
-              <v-list-item-subtitle>{{ pc.timestamp.toDate() }}</v-list-item-subtitle>
+              <!--<v-list-item-subtitle>{{ pc.timestamp.toDate() }}</v-list-item-subtitle>-->
             </v-list-item-content>
             <v-list-item-action>
               <v-btn icon @click.stop="setEditModal(pc)">
@@ -172,7 +173,7 @@ export default {
         title: this.newPCTitle,
         mac: this.newPCMAC,
         on: false,
-        timestamp: Date.now(),
+        timestamp: new Date(),
       });
 
       this.newPCTitle = "";

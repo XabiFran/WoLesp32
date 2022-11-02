@@ -12,6 +12,7 @@ const routes = [
     path: "/",
     name: "PCs",
     component: PCs,
+    //meta: {requiresAuth: true}
   },
   {
     path: "/about",
@@ -22,7 +23,7 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
-  { path: "/feed", component: () => import("../views/Feed.vue"), meta: {requiresAuth: true} },
+  { path: "/feed", component: () => import("../views/Feed.vue"), /*meta: {requiresAuth: true}*/ },
   { path: "/login", component: () => import("../views/Login.vue") },
   { path: "/sign-in", component: () => import("../views/SignIn.vue") },
   { path: "/login2", component: () => import("../views/Login2.vue") },
