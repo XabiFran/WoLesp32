@@ -100,6 +100,7 @@ export default {
       auth
         .signOut()
         .then(() => {
+          this.$store.dispatch('emptyPCs');
           this.$store.commit("setAuthorization", false);
           this.$router.replace("login2");
         })

@@ -1,6 +1,8 @@
 <template>
   <form class="form1 pa-6" @submit.prevent="signupRequest">
     <H1>SIGN UP</H1>
+    <v-text-field v-model="username" label="User Name" required></v-text-field>
+
     <v-text-field v-model="email" label="E-mail" required></v-text-field>
 
     <v-text-field
@@ -31,6 +33,7 @@ export default {
       show1: false,
       email: "",
       password: "",
+      username: "",
       xhrRequest: false,
       rules: {
         required: (value) => !!value || "Required.",
@@ -47,6 +50,11 @@ export default {
       auth
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((cred) => {
+          return db.collection("Users").doc(cred.user.uid).set({
+            username: this.username,
+          });
+        })
+        .then(() => {
           this.$router.replace("login2");
         })
         .catch((err) => {

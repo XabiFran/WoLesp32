@@ -12,7 +12,7 @@ const routes = [
     path: "/",
     name: "PCs",
     component: PCs,
-    //meta: {requiresAuth: true}
+    meta: {requiresAuth: true}
   },
   {
     path: "/about",

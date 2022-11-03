@@ -74,32 +74,62 @@ export default new Vuex.Store({
     retrievePCs(state, PCs) {
       state.pcList = PCs;
     },
+    emptyPCs(state) {
+      while(state.pcList.length > 0) {
+        state.pcList.pop();
+    }
+    },
   },
   actions: {
+    emptyPCs(context){
+      context.commit("emptyPCs");
+    },
     retrievePCs(context) {
-      db.collection("PCs")
-        .get()
-        .then((snapshot) => {
-          let tempPCs = [];
-          snapshot.forEach((doc) => {
-            const data = {
-              id: doc.id,
-              mac: doc.data().mac,
-              title: doc.data().title,
-              on: doc.data().on,
-              timestamp: doc.data().timestamp,
-            };
-            tempPCs.push(data);
-          });
-          const tempPCsSorted = tempPCs.sort((a, b) => {
-            return a.timestamp.seconds - b.timestamp.seconds;
-          });
-          context.commit("retrievePCs", tempPCsSorted);
-        });
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          db.collection("Users").doc(auth.currentUser.uid).collection("PCs")
+            .get()
+            .then((snapshot) => {
+              let tempPCs = [];
+              snapshot.forEach((doc) => {
+                const data = {
+                  id: doc.id,
+                  mac: doc.data().mac,
+                  title: doc.data().title,
+                  on: doc.data().on,
+                  timestamp: doc.data().timestamp,
+                };
+                tempPCs.push(data);
+              });
+              const tempPCsSorted = tempPCs.sort((a, b) => {
+                return a.timestamp.seconds - b.timestamp.seconds;
+              });
+              context.commit("retrievePCs", tempPCsSorted);
+            });
+        } else {
+          console.log("No estás logueado compai");
+          context.commit("emptyPCs");
+        }
+      });
     },
 
     addPC(context, PC) {
-      db.collection("PCs")
+      db.collection("Users").doc(auth.currentUser.uid).collection("PCs").add({
+        title: PC.title,
+        on: PC.on,
+        mac: PC.mac,
+        timestamp: new Date(),
+      }).then((docRef) => {
+        context.commit("addPC", {
+          title: PC.title,
+          on: PC.on,
+          mac: PC.mac,
+          id: docRef.id,
+          timestamp: PC.timestamp,
+        });
+      });
+      //////////////////////////////SEPARADOR
+      /*db.collection("PCs")
         .add({
           title: PC.title,
           on: PC.on,
@@ -114,11 +144,11 @@ export default new Vuex.Store({
             id: docRef.id,
             timestamp: PC.timestamp,
           });
-        });
+        });*/
     },
 
     turnOnPC(context, id) {
-      db.collection("PCs")
+      db.collection("Users").doc(auth.currentUser.uid).collection("PCs")
         .doc(id)
         .get()
         .then((doc) => {
@@ -131,7 +161,7 @@ export default new Vuex.Store({
     },
 
     deletePC(context, id) {
-      db.collection("PCs")
+      db.collection("Users").doc(auth.currentUser.uid).collection("PCs")
         .doc(id)
         .delete()
         .then(() => {
@@ -140,13 +170,12 @@ export default new Vuex.Store({
     },
 
     updatePC(context, PC) {
-      db.collection("PCs")
+      db.collection("Users").doc(auth.currentUser.uid).collection("PCs")
         .doc(PC.id)
         .set({
           title: PC.title,
           on: PC.on,
           mac: PC.mac,
-          id: PC.id,
           timestamp: new Date(),
         })
         .then(() => {
