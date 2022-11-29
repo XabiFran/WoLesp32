@@ -2,10 +2,7 @@
   <div class="PCs">
     <v-list flat class="pt-0">
       <div v-for="pc in this.$store.state.pcList" :key="pc.id">
-        <v-list-item
-          
-          :class="{ 'green lighten-5': pc.on }"
-        >
+        <v-list-item :class="{ 'green lighten-5': pc.on }">
           <template v-slot:default>
             <v-list-item-action>
               <v-switch
@@ -128,9 +125,8 @@
 </template>
 
 <script>
-
+import { auth, db } from "../main";
 export default {
-  
   name: "Home",
   data() {
     return {
@@ -158,6 +154,7 @@ export default {
       thisPCID: "",
       thisPCOn: false,
       thisPCTimestamp: "",
+      thisPCTurnOn: false,
     };
   },
   methods: {
@@ -174,6 +171,7 @@ export default {
         mac: this.newPCMAC,
         on: false,
         timestamp: new Date(),
+        turnOn: false,
       });
 
       this.newPCTitle = "";
@@ -184,6 +182,7 @@ export default {
       this.thisPCMAC = pc.mac;
       this.thisPCID = pc.id;
       this.thisPCOn = pc.on;
+      this.thisPCTurnOn = pc.turnOn;
       this.thisPCTimestamp = pc.timestamp;
       this.dialog2 = !this.dialog2;
     },
@@ -193,12 +192,37 @@ export default {
         id: this.thisPCID,
         mac: this.thisPCMAC,
         on: this.thisPCOn,
+        turnOn: this.thisPCTurnOn,
       });
     },
   },
-  created(){
-    this.$store.dispatch('retrievePCs');
-  }
+  created() {
+    this.$store.dispatch("retrievePCs");
+    db.collection("Users")
+      .doc(auth.currentUser.uid)
+      .collection("PCs")
+      .onSnapshot((res) => {
+        const changes = res.docChanges();
+
+        changes.forEach((change) => {
+          if (change.type === "modified") {
+            console.log(
+              "Modified PC: ",
+              change.doc.data(),
+              "ID: ",
+              change.doc.id
+            );
+            this.$store.dispatch("updatePCListener", {
+              title: change.doc.data().title,
+              id: change.doc.id,
+              mac: change.doc.data().mac,
+              on: change.doc.data().on,
+              turnOn: change.doc.data().turnOn,
+            });
+          }
+        });
+      });
+  },
 };
 </script>
 

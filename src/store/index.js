@@ -19,6 +19,7 @@ export default new Vuex.Store({
         mac: "00:00:00:00:00:00",
         on: true,
         timestamp: new Date(),
+        turnOn: false,
       },
       {
         id: 2,
@@ -26,6 +27,7 @@ export default new Vuex.Store({
         mac: "00:00:00:00:00:00",
         on: false,
         timestamp: new Date(),
+        turnOn: false,
       },
       {
         id: 3,
@@ -33,6 +35,7 @@ export default new Vuex.Store({
         mac: "00:00:00:00:00:00",
         on: false,
         timestamp: new Date(),
+        turnOn: false,
       },
     ],
   },
@@ -48,6 +51,7 @@ export default new Vuex.Store({
         mac: PC.mac,
         on: PC.on,
         timestamp: PC.timestamp,
+        turnOn: PC.turnOn,
       });
     },
     updatePC(state, PC) {
@@ -62,11 +66,12 @@ export default new Vuex.Store({
         mac: PC.mac,
         on: PC.on,
         timestamp: PC.timestamp,
+        turnOn: PC.turnOn,
       });
     },
     turnOnPC(state, id) {
       let pc = state.pcList.filter((pc) => pc.id === id)[0];
-      pc.on = !pc.on;
+      pc.turnOn = !pc.turnOn;
     },
     deletePC(state, id) {
       state.pcList = state.pcList.filter((pc) => pc.id !== id);
@@ -75,19 +80,21 @@ export default new Vuex.Store({
       state.pcList = PCs;
     },
     emptyPCs(state) {
-      while(state.pcList.length > 0) {
+      while (state.pcList.length > 0) {
         state.pcList.pop();
-    }
+      }
     },
   },
   actions: {
-    emptyPCs(context){
+    emptyPCs(context) {
       context.commit("emptyPCs");
     },
     retrievePCs(context) {
       auth.onAuthStateChanged((user) => {
         if (user) {
-          db.collection("Users").doc(auth.currentUser.uid).collection("PCs")
+          db.collection("Users")
+            .doc(auth.currentUser.uid)
+            .collection("PCs")
             .get()
             .then((snapshot) => {
               let tempPCs = [];
@@ -98,6 +105,7 @@ export default new Vuex.Store({
                   title: doc.data().title,
                   on: doc.data().on,
                   timestamp: doc.data().timestamp,
+                  turnOn: doc.data().turnOn,
                 };
                 tempPCs.push(data);
               });
@@ -114,20 +122,26 @@ export default new Vuex.Store({
     },
 
     addPC(context, PC) {
-      db.collection("Users").doc(auth.currentUser.uid).collection("PCs").add({
-        title: PC.title,
-        on: PC.on,
-        mac: PC.mac,
-        timestamp: new Date(),
-      }).then((docRef) => {
-        context.commit("addPC", {
+      db.collection("Users")
+        .doc(auth.currentUser.uid)
+        .collection("PCs")
+        .add({
           title: PC.title,
           on: PC.on,
           mac: PC.mac,
-          id: docRef.id,
-          timestamp: PC.timestamp,
+          timestamp: new Date(),
+          turnOn: PC.turnOn,
+        })
+        .then((docRef) => {
+          context.commit("addPC", {
+            title: PC.title,
+            on: PC.on,
+            mac: PC.mac,
+            id: docRef.id,
+            timestamp: PC.timestamp,
+            turnOn: PC.turnOn,
+          });
         });
-      });
       //////////////////////////////SEPARADOR
       /*db.collection("PCs")
         .add({
@@ -148,12 +162,16 @@ export default new Vuex.Store({
     },
 
     turnOnPC(context, id) {
-      db.collection("Users").doc(auth.currentUser.uid).collection("PCs")
+      db.collection("Users")
+        .doc(auth.currentUser.uid)
+        .collection("PCs")
         .doc(id)
         .get()
         .then((doc) => {
           console.log("Hasta aqui llegué");
-          return doc.ref.update({ on: !doc.data().on });
+          return doc.ref.update({
+            turnOn: !doc.data().turnOn,
+          });
         })
         .then(() => {
           context.commit("turnOnPC", id);
@@ -161,7 +179,9 @@ export default new Vuex.Store({
     },
 
     deletePC(context, id) {
-      db.collection("Users").doc(auth.currentUser.uid).collection("PCs")
+      db.collection("Users")
+        .doc(auth.currentUser.uid)
+        .collection("PCs")
         .doc(id)
         .delete()
         .then(() => {
@@ -170,17 +190,23 @@ export default new Vuex.Store({
     },
 
     updatePC(context, PC) {
-      db.collection("Users").doc(auth.currentUser.uid).collection("PCs")
+      db.collection("Users")
+        .doc(auth.currentUser.uid)
+        .collection("PCs")
         .doc(PC.id)
         .set({
           title: PC.title,
           on: PC.on,
           mac: PC.mac,
           timestamp: new Date(),
+          turnOn: PC.turnOn,
         })
         .then(() => {
           context.commit("updatePC", PC);
         });
+    },
+    updatePCListener(context, PC) {
+      context.commit("updatePC", PC);
     },
   },
 
