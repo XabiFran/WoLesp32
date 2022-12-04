@@ -12,6 +12,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     autorized: null,
+    username: null,
     pcList: [
       {
         id: 1,
