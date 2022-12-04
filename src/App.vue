@@ -4,23 +4,47 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h6"> WOLESP </v-list-item-title>
-          <v-list-item-subtitle> PC Checker </v-list-item-subtitle>
+          <v-list-item-subtitle> {{ subtitulo }} </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
       <v-divider></v-divider>
+      <div v-if="this.$store.state.autorized">
+        <v-list dense nav>
+          <v-list-item
+            v-for="item in items"
+            :key="item.title"
+            :to="item.to"
+            link
+          >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
 
-      <v-list dense nav>
-        <v-list-item v-for="item in items" :key="item.title" :to="item.to" link>
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </div>
+      <div v-else>
+        <v-list dense nav>
+          <v-list-item
+            v-for="item in items.slice(1,2)"
+            :key="item.title"
+            :to="item.to"
+            link
+          >
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
 
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </div>
     </v-navigation-drawer>
 
     <v-app-bar app color="primary" dark src="vaporwave.jpg" prominent>
@@ -45,7 +69,7 @@
         <v-icon>mdi-heart</v-icon>
       </v-btn>-->
 
-      <v-menu bottom left>
+      <v-menu bottom left v-if="!this.$store.state.autorized">
         <template v-slot:activator="{ on, attrs }">
           <v-btn dark icon v-bind="attrs" v-on="on">
             <v-icon>mdi-dots-vertical</v-icon>
@@ -83,24 +107,24 @@ export default {
   data: () => ({
     drawer: null,
     isLogged: false,
+    subtitulo: "PC checker",
     items: [
-      { title: "PCs", icon: "mdi-format-list-checks", to: "/" },
-      { title: "About", icon: "mdi-help-box", to: "/about" },
+      { title: "PCs", icon: "mdi-format-list-checks", to: "/", mostrar: false },
+      { title: "About", icon: "mdi-help-box", to: "/about", mostrar: true },
     ],
     options: [
       { title: "Sign in", to: "/sign-up2" },
       { title: "Login", to: "/login2" },
-      { title: "Sign Out", to: "/" },
     ],
   }),
-
+  computed: {},
   methods: {
     handleSignOut() {
       console.log("Entré en la función de salir");
       auth
         .signOut()
         .then(() => {
-          this.$store.dispatch('emptyPCs');
+          this.$store.dispatch("emptyPCs");
           this.$store.commit("setAuthorization", false);
           this.$router.replace("login2");
         })
@@ -117,9 +141,26 @@ export default {
 
   created() {
     auth.onAuthStateChanged((user) => {
-      if (user) this.isLogged = true;
-      else this.isLogged = false;
+      if(this.$store.state.autorized){
+        var docRef = db.collection("Users").doc(auth.currentUser.uid);
+        docRef.get().then((doc) => {
+    if (doc.exists) {
+        console.log("Document data:", doc.data());
+        this.subtitulo = doc.data().username;
+    } else {
+        console.log("No such document!");
+    }
+}).catch((error) => {
+    console.log("Error getting document:", error);
+});
+      
+      
+    } else {
+      this.subtitulo = "PC Checker";
+    }
     });
+
+    
   },
 };
 </script>

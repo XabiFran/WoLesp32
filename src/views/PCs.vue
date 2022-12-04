@@ -53,9 +53,6 @@
             <v-icon v-else> mdi-desktop-classic </v-icon>
           </v-btn>
         </template>
-        <v-btn fab dark small color="green">
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
         <v-btn fab dark small color="indigo" @click="dialog1 = !dialog1">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
