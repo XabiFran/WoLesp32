@@ -70,8 +70,10 @@
         <v-card-text>
           <v-text-field label="File name" v-model="newPCTitle"></v-text-field>
           <v-text-field label="MAC Address" v-model="newPCMAC"></v-text-field>
-
           <small class="grey--text">* MAC Format: AA:BB:CC:DD:EE:FF</small>
+          
+          <v-text-field label="IP Address" v-model="newPCIP"></v-text-field>
+          <small class="grey--text">* IP Format: xxx.xxx.xxx.xxx</small>
         </v-card-text>
 
         <v-card-actions>
@@ -99,8 +101,10 @@
         <v-card-text>
           <v-text-field label="File name" v-model="thisPCTitle"></v-text-field>
           <v-text-field label="MAC Address" v-model="thisPCMAC"></v-text-field>
-
           <small class="grey--text">* MAC Format: AA:BB:CC:DD:EE:FF</small>
+
+          <v-text-field label="IP Address" v-model="thisPCIP"></v-text-field>
+          <small class="grey--text">* IP Format: xxx.xxx.xxx.xxx</small>
         </v-card-text>
 
         <v-card-actions>
@@ -145,7 +149,9 @@ export default {
 
       newPCMAC: "00:00:00:00:00:00",
       newPCTitle: "hola",
+      newPCIP: "192.168.1.1",
 
+      thisPCIP: "",
       thisPCMAC: "",
       thisPCTitle: "",
       thisPCID: "",
@@ -166,16 +172,18 @@ export default {
         id: Date.now(),
         title: this.newPCTitle,
         mac: this.newPCMAC,
+        ip:this.newPCIP,
         on: false,
         timestamp: new Date(),
         turnOn: false,
       });
-
+      this.newPCIP = "";
       this.newPCTitle = "";
       this.newPCMAC = "";
     },
     setEditModal(pc) {
       this.thisPCTitle = pc.title;
+      this.thisPCIP = pc.ip;
       this.thisPCMAC = pc.mac;
       this.thisPCID = pc.id;
       this.thisPCOn = pc.on;
@@ -188,6 +196,7 @@ export default {
         title: this.thisPCTitle,
         id: this.thisPCID,
         mac: this.thisPCMAC,
+        ip: this.thisPCIP,
         on: this.thisPCOn,
         turnOn: this.thisPCTurnOn,
       });

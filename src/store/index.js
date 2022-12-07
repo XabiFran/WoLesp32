@@ -24,6 +24,7 @@ export default new Vuex.Store({
       state.pcList.push({
         id: PC.id,
         title: PC.title,
+        ip: PC.ip,
         mac: PC.mac,
         on: PC.on,
         timestamp: PC.timestamp,
@@ -40,6 +41,7 @@ export default new Vuex.Store({
         title: PC.title,
         id: PC.id,
         mac: PC.mac,
+        ip: PC.ip,
         on: PC.on,
         timestamp: PC.timestamp,
         turnOn: PC.turnOn,
@@ -78,6 +80,7 @@ export default new Vuex.Store({
                 const data = {
                   id: doc.id,
                   mac: doc.data().mac,
+                  ip: doc.data().ip,
                   title: doc.data().title,
                   on: doc.data().on,
                   timestamp: doc.data().timestamp,
@@ -105,6 +108,7 @@ export default new Vuex.Store({
           title: PC.title,
           on: PC.on,
           mac: PC.mac,
+          ip: PC.ip,
           timestamp: new Date(),
           turnOn: PC.turnOn,
         })
@@ -113,6 +117,7 @@ export default new Vuex.Store({
             title: PC.title,
             on: PC.on,
             mac: PC.mac,
+            ip: PC.ip,
             id: docRef.id,
             timestamp: PC.timestamp,
             turnOn: PC.turnOn,
@@ -174,6 +179,7 @@ export default new Vuex.Store({
           title: PC.title,
           on: PC.on,
           mac: PC.mac,
+          PC: PC.ip,
           timestamp: new Date(),
           turnOn: PC.turnOn,
         })
