@@ -30,7 +30,7 @@
       <div v-else>
         <v-list dense nav>
           <v-list-item
-            v-for="item in items.slice(1,2)"
+            v-for="item in items.slice(1, 2)"
             :key="item.title"
             :to="item.to"
             link
@@ -141,26 +141,26 @@ export default {
 
   created() {
     auth.onAuthStateChanged((user) => {
-      if(this.$store.state.autorized){
+      if (this.$store.state.autorized) {
+        console.log("USUARIO:"+user);
         var docRef = db.collection("Users").doc(auth.currentUser.uid);
-        docRef.get().then((doc) => {
-    if (doc.exists) {
-        console.log("Document data:", doc.data());
-        this.subtitulo = doc.data().username;
-    } else {
-        console.log("No such document!");
-    }
-}).catch((error) => {
-    console.log("Error getting document:", error);
-});
-      
-      
-    } else {
-      this.subtitulo = "PC Checker";
-    }
+        docRef
+          .get()
+          .then((doc) => {
+            if (doc.exists) {
+              console.log("Document data:", doc.data());
+              this.subtitulo = doc.data().username;
+            } else {
+              console.log("No such document!");
+            }
+          })
+          .catch((error) => {
+            console.log("Error getting document:", error);
+          });
+      } else {
+        this.subtitulo = "PC Checker";
+      }
     });
-
-    
   },
 };
 </script>

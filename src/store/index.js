@@ -13,32 +13,7 @@ export default new Vuex.Store({
   state: {
     autorized: null,
     username: null,
-    pcList: [
-      {
-        id: 1,
-        title: "PC de Luis",
-        mac: "00:00:00:00:00:00",
-        on: true,
-        timestamp: new Date(),
-        turnOn: false,
-      },
-      {
-        id: 2,
-        title: "PC de Xabi",
-        mac: "00:00:00:00:00:00",
-        on: false,
-        timestamp: new Date(),
-        turnOn: false,
-      },
-      {
-        id: 3,
-        title: "PC de Frades",
-        mac: "00:00:00:00:00:00",
-        on: false,
-        timestamp: new Date(),
-        turnOn: false,
-      },
-    ],
+    pcList: [],
   },
   getters: {},
   mutations: {
