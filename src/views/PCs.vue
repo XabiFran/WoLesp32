@@ -22,7 +22,7 @@
               <!--<v-list-item-subtitle>{{ pc.timestamp.toDate() }}</v-list-item-subtitle>-->
             </v-list-item-content>
             <v-list-item-action>
-              <v-btn icon @click.stop="setEditModal(pc)">
+              <v-btn v-if="showEdit" icon @click.stop="setEditModal(pc)">
                 <v-icon color="blue-grey lighten-1">mdi-pencil</v-icon>
               </v-btn>
               <v-btn v-if="showDelete" icon @click.stop="deletePC(pc.id)">
@@ -56,8 +56,9 @@
         <v-btn fab dark small color="indigo" @click="dialog1 = !dialog1">
           <v-icon>mdi-plus</v-icon>
         </v-btn>
-        <v-btn fab dark small color="red" @click="showDelete = !showDelete">
-          <v-icon>mdi-delete</v-icon>
+        <v-btn fab dark small color="red" @click="showDelete = !showDelete; showEdit = !showEdit">
+          <v-icon v-if="showDelete">mdi-delete-off</v-icon>
+          <v-icon v-else>mdi-delete</v-icon>
         </v-btn>
       </v-speed-dial>
     </div>
@@ -135,6 +136,7 @@ export default {
       dialog2: false,
 
       showDelete: false,
+      showEdit: true,
 
       direction: "top",
       fab: false,
