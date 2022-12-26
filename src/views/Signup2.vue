@@ -23,9 +23,8 @@
 <script>
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import "firebase/compat/firestore";
-
-import { auth, db } from "../main";
+import { getDatabase, ref, set, push } from "firebase/database";
+import { database, auth } from "../main";
 
 export default {
   data() {
@@ -50,9 +49,14 @@ export default {
       auth
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((cred) => {
-          return db.collection("Users").doc(cred.user.uid).set({
+          //Parte de RTDB
+          return set(ref(database, "UsersData/"+cred.user.uid), {
             username: this.username,
           });
+          //Parte de Firestore
+          /*db.collection("Users").doc(cred.user.uid).set({
+            username: this.username,
+          });*/
         })
         .then(() => {
           this.$router.replace("login2");

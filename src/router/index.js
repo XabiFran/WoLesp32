@@ -4,14 +4,15 @@ import PCs from "../views/PCs.vue";
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import state from "../store/index";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "PCs",
-    component: PCs,
+    name: "Devices",
+    component: () => import("../views/Devices.vue"),
     meta: {requiresAuth: true}
   },
   {
@@ -24,10 +25,11 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
   },
   { path: "/feed", component: () => import("../views/Feed.vue"), /*meta: {requiresAuth: true}*/ },
-  { path: "/login", component: () => import("../views/Login.vue") },
-  { path: "/sign-in", component: () => import("../views/SignIn.vue") },
+  //{ path: "/login", component: () => import("../views/Login.vue") },
+  //{ path: "/sign-in", component: () => import("../views/SignIn.vue") },
   { path: "/login2", component: () => import("../views/Login2.vue") },
   { path: "/sign-up2", component: () => import("../views/Signup2.vue") },
+  { path: "/PCs", component: () => import("../views/PCs.vue"), meta: {requiresAuth: true}, },
 ];
 
 const router = new VueRouter({
@@ -41,6 +43,10 @@ router.beforeEach((to, from, next) => {
   if(requiresAuth && ! authenticatedUser) next('login2')
   else next()
 
+  
+  /*if(state.state.currentDevice == null) next('/')
+  else next()*/
+  
 });
 
 export default router;

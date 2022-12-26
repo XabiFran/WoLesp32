@@ -99,9 +99,11 @@
 import router from "./router";
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-import "firebase/compat/firestore";
+//import "firebase/compat/firestore";
+import { getDatabase, ref, set } from "firebase/database";
+import { auth, db, database } from "./main";
 
-import { auth, db } from "./main";
+
 
 export default {
   data: () => ({
@@ -109,7 +111,7 @@ export default {
     isLogged: false,
     subtitulo: "PC checker",
     items: [
-      { title: "PCs", icon: "mdi-format-list-checks", to: "/", mostrar: false },
+      { title: "Devices", icon: "mdi-format-list-checks", to: "/", mostrar: false },
       { title: "About", icon: "mdi-help-box", to: "/about", mostrar: true },
     ],
     options: [
@@ -140,6 +142,7 @@ export default {
   },
 
   created() {
+    /*console.log("print del ñeet desde el main ");
     auth.onAuthStateChanged((user) => {
       if (this.$store.state.autorized) {
         console.log("USUARIO:"+user);
@@ -160,7 +163,7 @@ export default {
       } else {
         this.subtitulo = "PC Checker";
       }
-    });
+    });*/
   },
 };
 </script>

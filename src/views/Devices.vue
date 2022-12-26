@@ -1,16 +1,11 @@
 <template>
-  <div class="PCs">
+  <div class="Devices">
     <v-list flat class="pt-0">
-      <div v-for="pc in this.$store.state.pcList" :key="pc.id">
-        <v-list-item :class="{ 'green lighten-5': pc.on }">
+      <div v-for="pc in this.$store.state.deviceList" :key="pc.id">
+        <v-list-item  @click.stop="setDeviceID(pc.id)">
           <template v-slot:default>
             <v-list-item-action>
-              <v-switch
-                inset
-                :input-value="pc.on"
-                color="light-green accent-4"
-                @click="modificarEstado(pc.id)"
-              ></v-switch>
+              <v-icon color="cyan lighten-2">mdi-chip</v-icon>
             </v-list-item-action>
 
             <v-list-item-content>
@@ -18,7 +13,7 @@
                 <!--:class="{ 'text-decoration-line-through': pc.on }"-->
                 {{ pc.title }}</v-list-item-title
               >
-              <v-list-item-subtitle>{{ pc.mac }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ pc.ip }}</v-list-item-subtitle>
               <!--<v-list-item-subtitle>{{ pc.timestamp.toDate() }}</v-list-item-subtitle>-->
             </v-list-item-content>
             <v-list-item-action>
@@ -50,7 +45,7 @@
         <template v-slot:activator>
           <v-btn v-model="fab" color="blue darken-2" dark fab>
             <v-icon v-if="fab"> mdi-close </v-icon>
-            <v-icon v-else> mdi-desktop-classic </v-icon>
+            <v-icon v-else> mdi-chip </v-icon>
           </v-btn>
         </template>
         <v-btn fab dark small color="indigo" @click="dialog1 = !dialog1">
@@ -75,15 +70,17 @@
     <v-dialog v-model="dialog1" max-width="500px">
       <v-card>
         <v-card-title>
-          <span class="text-h5">Add PC</span>
+          <span class="text-h5">Add Device</span>
         </v-card-title>
         <v-card-text>
-          <v-text-field label="PC name" v-model="newPCTitle"></v-text-field>
+          <v-text-field label="Device name" v-model="newPCTitle"></v-text-field>
           <v-text-field label="MAC Address" v-model="newPCMAC"></v-text-field>
           <small class="grey--text">* MAC Format: AA:BB:CC:DD:EE:FF</small>
 
-          <v-text-field label="IP Address" v-model="newPCIP"></v-text-field>
-          <small class="grey--text">* IP Format: xxx.xxx.xxx.xxx</small>
+          <v-text-field
+            label="Brief description"
+            v-model="newPCIP"
+          ></v-text-field>
         </v-card-text>
 
         <v-card-actions>
@@ -94,7 +91,7 @@
             color="primary"
             @click="
               dialog1 = false;
-              addPC();
+              addDevice();
             "
             >Submit</v-btn
           >
@@ -109,7 +106,7 @@
           <span class="text-h5">Edit PC</span>
         </v-card-title>
         <v-card-text>
-          <v-text-field label="PC name" v-model="thisPCTitle"></v-text-field>
+          <v-text-field label="File name" v-model="thisPCTitle"></v-text-field>
           <v-text-field label="MAC Address" v-model="thisPCMAC"></v-text-field>
           <small class="grey--text">* MAC Format: AA:BB:CC:DD:EE:FF</small>
 
@@ -161,9 +158,10 @@ export default {
       transition: "slide-y-reverse-transition",
 
       newPCMAC: "00:00:00:00:00:00",
-      newPCTitle: "hola",
-      newPCIP: "192.168.1.1",
-
+      newPCTitle: "Dispositivo nuevo",
+      newPCIP: "Descripción del dispositivo",
+      toRoute: "/PCs",
+      thisDeviceID: "",
       thisPCIP: "",
       thisPCMAC: "",
       thisPCTitle: "",
@@ -180,15 +178,13 @@ export default {
     deletePC(id) {
       this.$store.dispatch("deletePC", id);
     },
-    addPC() {
-      this.$store.dispatch("addPC", {
+    addDevice() {
+      this.$store.dispatch("addDevice", {
         id: Date.now(),
         title: this.newPCTitle,
         mac: this.newPCMAC,
         ip: this.newPCIP,
-        on: false,
         timestamp: new Date(),
-        turnOn: false,
       });
       this.newPCIP = "";
       this.newPCTitle = "";
@@ -199,25 +195,24 @@ export default {
       this.thisPCIP = pc.ip;
       this.thisPCMAC = pc.mac;
       this.thisPCID = pc.id;
-      this.thisPCOn = pc.on;
-      this.thisPCTurnOn = pc.turnOn;
       this.thisPCTimestamp = pc.timestamp;
       this.dialog2 = !this.dialog2;
     },
+    setDeviceID(id){
+      this.$store.dispatch("setDeviceID", id);
+      this.$router.replace("PCs");
+    },
     updatePC(id) {
-      this.$store.dispatch("updatePC", {
+      this.$store.dispatch("updateDevice", {
         title: this.thisPCTitle,
         id: this.thisPCID,
         mac: this.thisPCMAC,
         ip: this.thisPCIP,
-        on: this.thisPCOn,
-        turnOn: this.thisPCTurnOn,
       });
     },
   },
   created() {
-    if (this.$store.state.currentDevice != null)
-      this.$store.dispatch("retrievePCs");
+    this.$store.dispatch("retrieveDevices");
     /*db.collection("Users")
       .doc(auth.currentUser.uid)
       .collection("PCs")
