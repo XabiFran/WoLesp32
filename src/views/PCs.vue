@@ -5,12 +5,7 @@
         <v-list-item>
           <template v-slot:default>
             <v-list-item-action>
-              <v-btn
-                color="success"
-                fab
-                dark
-                @click="modificarEstado(pc)"
-              >
+              <v-btn color="success" fab dark @click="modificarEstado(pc)">
                 <v-icon large>mdi-power</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -25,12 +20,18 @@
                 <v-icon large>mdi-refresh</v-icon>
               </v-btn>
             </v-list-item-action>
-            <v-list-item-action v-if="pc.on">
+            <v-list-item-action v-if="pc.result == 'turnedOn'">
               <v-icon class="mr-5" color="light-green accent-3"
                 >mdi-circle</v-icon
               >
             </v-list-item-action>
-            <v-list-item-action v-else>
+            <v-list-item-action v-else-if="pc.result == 'processing'">
+              <v-icon class="mr-5" color="amber">mdi-circle</v-icon>
+            </v-list-item-action>
+            <v-list-item-action v-else-if="pc.result == 'disconnected'">
+              <v-icon class="mr-5">mdi-circle</v-icon>
+            </v-list-item-action>
+            <v-list-item-action v-else-if="pc.result == 'notTurnedOn'">
               <v-icon class="mr-5" color="red darken-1">mdi-circle</v-icon>
             </v-list-item-action>
 
@@ -221,9 +222,20 @@
 </template>
 
 <script>
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import {
+  ref,
+  set,
+  push,
+  get,
+  query,
+  child,
+  getDatabase,
+  update,
+} from "firebase/database";
+import { database as RTDBdatabase } from "../main";
 import { auth, db } from "../main";
-import { getDatabase, ref, set, push } from "firebase/database";
-import { database } from "../main";
 export default {
   name: "Home",
   data() {
@@ -231,6 +243,11 @@ export default {
       dialog1: false,
       dialog2: false,
       detailDialog: false,
+
+      timer: null,
+
+      loader: null,
+      loading5: false,
 
       showDelete: false,
       showEdit: false,
@@ -259,11 +276,51 @@ export default {
       thisPCTurnOn: false,
     };
   },
+  watch: {
+    loader() {
+      const l = this.loader;
+      this[l] = !this[l];
+
+      setTimeout(() => (this[l] = false), 3000);
+
+      this.loader = null;
+    },
+  },
   methods: {
     modificarEstado(pc) {
       this.$store.dispatch("turnOnPC", pc);
+      this.$store.dispatch("updatePC", {
+        title: pc.title,
+        id: pc.id,
+        mac: pc.mac,
+        ip: pc.ip,
+        on: pc.on,
+        turnOn: pc.turnOn,
+        result: "processing",
+      });
+      this.timer = setTimeout(() => {
+        console.log("No se ha obtenido respuesta");
+        this.$store.dispatch("updatePC", {
+          title: pc.title,
+          id: pc.id,
+          mac: pc.mac,
+          ip: pc.ip,
+          on: pc.on,
+          turnOn: pc.turnOn,
+          result: "disconnected",
+        });
+      }, 30000);
     },
     pingearPC(pc) {
+      this.$store.dispatch("updatePC", {
+        title: pc.title,
+        id: pc.id,
+        mac: pc.mac,
+        ip: pc.ip,
+        on: pc.on,
+        turnOn: pc.turnOn,
+        result: "processing",
+      });
       this.$store.dispatch("pingearPC", pc);
     },
     deletePC(id) {
@@ -317,6 +374,28 @@ export default {
   created() {
     if (this.$store.state.currentDevice != null)
       this.$store.dispatch("retrievePCs");
+
+    if (this.$store.state.currentDevice != null) {
+      const ref = RTDBdatabase.ref(
+        "UsersData/" +
+          auth.currentUser.uid +
+          "/Devices/" +
+          this.$store.state.currentDevice +
+          "/result"
+      );
+      console.log("REFERENCE TO RESULT: ", ref);
+      ref.on(
+        "value",
+        (snapshot) => {
+          clearTimeout(this.timer);
+          console.log("Acabo de cancelar el timeout.");
+          console.log("VALOR DE RESULT ESCUCHADA: ", snapshot.val());
+        },
+        (errorObject) => {
+          console.log("The read failed: " + errorObject.name);
+        }
+      );
+    }
     /*db.collection("Users")
       .doc(auth.currentUser.uid)
       .collection("PCs")
@@ -346,12 +425,47 @@ export default {
 </script>
 
 <style>
-/* This is for documentation purposes and will not be needed in your application */
 #create .v-speed-dial {
   position: absolute;
 }
 
 #create .v-btn--floating {
   position: relative;
+}
+.custom-loader {
+  animation: loader 1s infinite;
+  display: flex;
+}
+@-moz-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 </style>

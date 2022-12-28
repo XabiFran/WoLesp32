@@ -21,6 +21,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    timer: null,
     autorized: null,
     currentDevice: null,
     username: null,
@@ -165,6 +166,7 @@ export default new Vuex.Store({
                   on: doc.val().on,
                   timestamp: doc.val().timestamp,
                   turnOn: doc.val().turnOn,
+                  result: doc.val().result,
                 };
                 tempPCs.push(data);
               });
@@ -245,6 +247,7 @@ export default new Vuex.Store({
         ip: PC.ip,
         timestamp: myTimestamp,
         turnOn: PC.turnOn,
+        result: "disconnected",
       }).key;
 
       update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Devices/"+ this.state.currentDevice + "/PCs/"+key), {
@@ -368,6 +371,7 @@ export default new Vuex.Store({
         ip: PC.ip,
         timestamp: new Date(),
         turnOn: PC.turnOn,
+        result: PC.result,
       });
       //FIRESTORE
       /*db.collection("Users")
