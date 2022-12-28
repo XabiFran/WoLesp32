@@ -176,7 +176,7 @@ export default {
       this.$store.dispatch("turnOnPC", id);
     },
     deletePC(id) {
-      this.$store.dispatch("deletePC", id);
+      this.$store.dispatch("deleteDevice", id);
     },
     addDevice() {
       this.$store.dispatch("addDevice", {

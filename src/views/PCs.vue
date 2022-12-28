@@ -2,15 +2,36 @@
   <div class="PCs">
     <v-list flat class="pt-0">
       <div v-for="pc in this.$store.state.pcList" :key="pc.id">
-        <v-list-item :class="{ 'green lighten-5': pc.on }">
+        <v-list-item>
           <template v-slot:default>
             <v-list-item-action>
-              <v-switch
-                inset
-                :input-value="pc.on"
-                color="light-green accent-4"
-                @click="modificarEstado(pc.id)"
-              ></v-switch>
+              <v-btn
+                color="success"
+                fab
+                dark
+                @click="modificarEstado(pc)"
+              >
+                <v-icon large>mdi-power</v-icon>
+              </v-btn>
+            </v-list-item-action>
+            <v-list-item-action>
+              <v-btn
+                color="blue darken-2"
+                fab
+                dark
+                class="mr-5 ml-n5"
+                @click="pingearPC(pc)"
+              >
+                <v-icon large>mdi-refresh</v-icon>
+              </v-btn>
+            </v-list-item-action>
+            <v-list-item-action v-if="pc.on">
+              <v-icon class="mr-5" color="light-green accent-3"
+                >mdi-circle</v-icon
+              >
+            </v-list-item-action>
+            <v-list-item-action v-else>
+              <v-icon class="mr-5" color="red darken-1">mdi-circle</v-icon>
             </v-list-item-action>
 
             <v-list-item-content>
@@ -25,8 +46,11 @@
               <v-btn v-if="showEdit" icon @click.stop="setEditModal(pc)">
                 <v-icon color="blue-grey lighten-1">mdi-pencil</v-icon>
               </v-btn>
-              <v-btn v-if="showDelete" icon @click.stop="deletePC(pc.id)">
+              <v-btn v-else-if="showDelete" icon @click.stop="deletePC(pc.id)">
                 <v-icon color="red lighten-2">mdi-close-thick</v-icon>
+              </v-btn>
+              <v-btn v-else icon @click.stop="setDetailModal(pc)">
+                <v-icon>mdi-information</v-icon>
               </v-btn>
             </v-list-item-action>
           </template>
@@ -57,20 +81,81 @@
           <v-icon>mdi-plus</v-icon>
         </v-btn>
         <v-btn
+          v-if="showEdit"
+          fab
+          dark
+          small
+          color="light-green "
+          @click="
+            showDelete = false;
+            showEdit = false;
+          "
+        >
+          <v-icon>mdi-pencil-off</v-icon>
+        </v-btn>
+        <v-btn
+          v-else
+          fab
+          dark
+          small
+          color="light-green "
+          @click="
+            showDelete = false;
+            showEdit = true;
+          "
+        >
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="showDelete"
           fab
           dark
           small
           color="red"
           @click="
-            showDelete = !showDelete;
-            showEdit = !showEdit;
+            showDelete = false;
+            showEdit = false;
           "
         >
-          <v-icon v-if="showDelete">mdi-delete-off</v-icon>
-          <v-icon v-else>mdi-delete</v-icon>
+          <v-icon>mdi-delete-off</v-icon>
+        </v-btn>
+        <v-btn
+          v-else
+          fab
+          dark
+          small
+          color="red"
+          @click="
+            showDelete = true;
+            showEdit = false;
+          "
+        >
+          <v-icon>mdi-delete</v-icon>
         </v-btn>
       </v-speed-dial>
     </div>
+    <!--EL Modal de ver detalles-->
+    <v-dialog v-model="detailDialog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">PC Details</span>
+        </v-card-title>
+        <v-card-text>
+          PC Name: {{ thisPCTitle }} <br />
+          PC ID: {{ thisPCID }}<br />
+          PC On: {{ thisPCOn }}<br />
+          PC Mac: {{ thisPCMAC }}<br />
+          PC IP: {{ thisPCIP }}<br />
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn text color="primary" @click="detailDialog = false">Ok</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!--EL Modal de añadir-->
     <v-dialog v-model="dialog1" max-width="500px">
       <v-card>
@@ -145,9 +230,10 @@ export default {
     return {
       dialog1: false,
       dialog2: false,
+      detailDialog: false,
 
       showDelete: false,
-      showEdit: true,
+      showEdit: false,
 
       direction: "top",
       fab: false,
@@ -174,8 +260,11 @@ export default {
     };
   },
   methods: {
-    modificarEstado(id) {
-      this.$store.dispatch("turnOnPC", id);
+    modificarEstado(pc) {
+      this.$store.dispatch("turnOnPC", pc);
+    },
+    pingearPC(pc) {
+      this.$store.dispatch("pingearPC", pc);
     },
     deletePC(id) {
       this.$store.dispatch("deletePC", id);
@@ -193,6 +282,16 @@ export default {
       this.newPCIP = "";
       this.newPCTitle = "";
       this.newPCMAC = "";
+    },
+    setDetailModal(pc) {
+      this.thisPCTitle = pc.title;
+      this.thisPCIP = pc.ip;
+      this.thisPCMAC = pc.mac;
+      this.thisPCID = pc.id;
+      this.thisPCOn = pc.on;
+      this.thisPCTurnOn = pc.turnOn;
+      this.thisPCTimestamp = pc.timestamp;
+      this.detailDialog = !this.detailDialog;
     },
     setEditModal(pc) {
       this.thisPCTitle = pc.title;

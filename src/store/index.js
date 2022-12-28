@@ -238,13 +238,17 @@ export default new Vuex.Store({
         });*/
       //parte de RTDB
       var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
-      push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Devices/"+ this.state.currentDevice + "/PCs"), {
+      var key = push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Devices/"+ this.state.currentDevice + "/PCs"), {
         title: PC.title,
         on: PC.on,
         mac: PC.mac,
         ip: PC.ip,
         timestamp: myTimestamp,
         turnOn: PC.turnOn,
+      }).key;
+
+      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Devices/"+ this.state.currentDevice + "/PCs/"+key), {
+        timestamp: new Date(),
       });
       /*.then((docRef) => {
         context.commit("addPC", {
@@ -261,11 +265,14 @@ export default new Vuex.Store({
 
     addDevice(context, PC) {
       var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
-      push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Devices"), {
+      var key=push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Devices"), {
         title: PC.title,
         mac: PC.mac,
         ip: PC.ip,
         timestamp: myTimestamp,
+      }).key;
+      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Devices/"+key), {
+        timestamp: new Date(),
       });
       /*.then((docRef) => {
         context.commit("addPC", {
@@ -279,19 +286,33 @@ export default new Vuex.Store({
         });
       })*/
     },
-
-    turnOnPC(context, id) {
-      //RTDB
+    pingearPC(context, PC){
+      var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
       const referenciatemp = RTDBdatabase.ref(
-        "UsersData/" + auth.currentUser.uid + "/Devices/"+ this.state.currentDevice + "/PCs/"+ id
+        "UsersData/" + auth.currentUser.uid + "/Devices/"+ this.state.currentDevice + "/Actions"
       );
-      referenciatemp.update({
-        title: PC.title,
-        on: PC.on,
+      referenciatemp.set({
+        action: "ping",
         mac: PC.mac,
         ip: PC.ip,
-        timestamp: new Date(),
-        turnOn: PC.turnOn,
+        timestamp: myTimestamp,
+        PCID: PC.id,
+        deviceID: this.state.currentDevice,
+      });
+    },
+    turnOnPC(context, PC) {
+      //RTDB
+      var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+      const referenciatemp = RTDBdatabase.ref(
+        "UsersData/" + auth.currentUser.uid + "/Devices/"+ this.state.currentDevice + "/Actions"
+      );
+      referenciatemp.set({
+        action: "encender",
+        mac: PC.mac,
+        ip: PC.ip,
+        timestamp: myTimestamp,
+        PCID: PC.id,
+        deviceID: this.state.currentDevice,
       });
       //FIRESTORE
       /*db.collection("Users")
