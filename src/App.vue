@@ -82,9 +82,55 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn icon @click="handleSignOut" v-if="this.$store.state.autorized">
-        <v-icon>mdi-logout</v-icon>
-      </v-btn>
+      <v-menu bottom left v-if="this.$store.state.autorized">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn dark icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item
+            v-for="(item, i) in exitOptions"
+            :key="i"
+            @click="handleExitOption(i)"
+            link
+          >
+            <v-list-item-title>{{ item.title }}</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <v-dialog v-model="deleteDialog" width="500" persistent>
+        <v-card>
+          <v-card-title class="headline grey lighten-2" primary-title>
+            Information
+          </v-card-title>
+
+          <v-card-text>
+            <br />
+            Are you sure you want to delete your account?</v-card-text
+          >
+
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="red"
+              text
+              @click="
+                deleteDialog = false;
+                handleDelete();
+              "
+            >
+              Yes, delete my accout
+            </v-btn>
+            <v-btn color="primary" text @click="deleteDialog = false">
+              No
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-app-bar>
 
     <v-main>
@@ -101,38 +147,63 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 //import "firebase/compat/firestore";
 import { getDatabase, ref, set } from "firebase/database";
-import { auth, db, database } from "./main";
-
-
+import { deleteUser } from "firebase/auth";
+import { auth, db } from "./main";
+import { database as RTDBdatabase } from "./main";
 
 export default {
   data: () => ({
     drawer: null,
     isLogged: false,
+    deleteDialog: false,
     subtitulo: "PC checker",
     items: [
-      { title: "Devices", icon: "mdi-format-list-checks", to: "/", mostrar: false },
+      {
+        title: "Devices",
+        icon: "mdi-format-list-checks",
+        to: "/",
+        mostrar: false,
+      },
       { title: "About", icon: "mdi-help-box", to: "/about", mostrar: true },
     ],
     options: [
       { title: "Sign in", to: "/sign-up2" },
       { title: "Login", to: "/login2" },
     ],
+    exitOptions: [{ title: "Log out" }, { title: "Delete account" }],
   }),
   computed: {},
   methods: {
-    handleSignOut() {
-      console.log("Entré en la función de salir");
-      auth
-        .signOut()
+    handleDelete() {
+      const usuarioBorrado = auth.currentUser;
+      const referenciatemp = RTDBdatabase.ref(
+        "UsersData/" + auth.currentUser.uid
+      );
+      referenciatemp.remove();
+      deleteUser(usuarioBorrado)
         .then(() => {
-          this.$store.dispatch("emptyPCs");
-          this.$store.commit("setAuthorization", false);
           this.$router.replace("login2");
         })
         .catch((err) => {
           console.log(`Error - ${err.message}`);
         });
+    },
+    handleExitOption(index) {
+      if (index == 0) {
+        auth
+          .signOut()
+          .then(() => {
+            this.$store.dispatch("emptyPCs");
+            this.$store.commit("setAuthorization", false);
+            this.$router.replace("login2");
+          })
+          .catch((err) => {
+            console.log(`Error - ${err.message}`);
+          });
+      }
+      if (index == 1) {
+        this.deleteDialog = true;
+      }
     },
     userAuthChange() {
       auth.onAuthStateChanged((user) => {

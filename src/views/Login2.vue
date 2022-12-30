@@ -1,11 +1,7 @@
 <template>
   <form class="form1 pa-6" @submit.prevent="loginUser">
     <H1>LOG IN</H1>
-    <v-text-field
-      v-model="email"
-      label="E-mail"
-      required
-    ></v-text-field>
+    <v-text-field v-model="email" label="E-mail" required></v-text-field>
 
     <v-text-field
       v-model="password"
@@ -19,6 +15,46 @@
       @click:append="show1 = !show1"
     ></v-text-field>
     <v-btn class="mr-4" @click="loginUser"> submit </v-btn>
+    <v-dialog v-model="dialogSuccess" width="500" persistent>
+      <v-card>
+        <v-card-title class="headline grey lighten-2" primary-title>
+          Information
+        </v-card-title>
+
+        <v-card-text> <br />Successful log in.</v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            text
+            @click="
+              dialogSuccess = false;
+              handleSuccess();
+            "
+          >
+            Ok
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+    <v-dialog v-model="dialogError" width="500">
+      <v-card>
+        <v-card-title class="headline grey lighten-2" primary-title>
+          Information
+        </v-card-title>
+        <v-card-text>
+          {{ this.error }}
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="dialogError = false"> Ok </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </form>
 </template>
 
@@ -31,6 +67,9 @@ export default {
   data() {
     return {
       show1: false,
+      dialogSuccess: false,
+      dialogError: false,
+      error: "",
       email: "",
       password: "",
       xhrRequest: false,
@@ -43,18 +82,21 @@ export default {
   },
 
   methods: {
+    handleSuccess() {
+      this.$store.commit("setAuthorization", true);
+      this.$router.replace("/");
+    },
     loginUser() {
       let r = this;
       r.xhrRequest = true;
       auth.signInWithEmailAndPassword(this.email, this.password).then(
         () => {
-          alert("login");
-          this.$store.commit('setAuthorization', true);
-          this.$router.replace("/");
+          this.dialogSuccess = true;
         },
         (err) => {
           r.xhrRequest = false;
-          console.log(`Error - ${err.message}`);
+          this.error = err.message;
+          this.dialogError = true;
         }
       );
     },

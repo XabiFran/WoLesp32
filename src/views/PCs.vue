@@ -274,6 +274,7 @@ export default {
       thisPCOn: false,
       thisPCTimestamp: "",
       thisPCTurnOn: false,
+      thisPCresult: "",
     };
   },
   watch: {
@@ -322,6 +323,18 @@ export default {
         result: "processing",
       });
       this.$store.dispatch("pingearPC", pc);
+      this.timer = setTimeout(() => {
+        console.log("No se ha obtenido respuesta");
+        this.$store.dispatch("updatePC", {
+          title: pc.title,
+          id: pc.id,
+          mac: pc.mac,
+          ip: pc.ip,
+          on: pc.on,
+          turnOn: pc.turnOn,
+          result: "disconnected",
+        });
+      }, 30000);
     },
     deletePC(id) {
       this.$store.dispatch("deletePC", id);
@@ -348,6 +361,7 @@ export default {
       this.thisPCOn = pc.on;
       this.thisPCTurnOn = pc.turnOn;
       this.thisPCTimestamp = pc.timestamp;
+      this.thisPCresult = pc.result;
       this.detailDialog = !this.detailDialog;
     },
     setEditModal(pc) {
@@ -358,6 +372,7 @@ export default {
       this.thisPCOn = pc.on;
       this.thisPCTurnOn = pc.turnOn;
       this.thisPCTimestamp = pc.timestamp;
+      this.thisPCresult = pc.result;
       this.dialog2 = !this.dialog2;
     },
     updatePC(id) {
@@ -368,6 +383,7 @@ export default {
         ip: this.thisPCIP,
         on: this.thisPCOn,
         turnOn: this.thisPCTurnOn,
+        result: this.thisPCresult,
       });
     },
   },

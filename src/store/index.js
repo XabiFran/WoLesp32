@@ -265,7 +265,6 @@ export default new Vuex.Store({
         });
       })*/
     },
-
     addDevice(context, PC) {
       var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
       var key=push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Devices"), {
@@ -333,7 +332,6 @@ export default new Vuex.Store({
           context.commit("turnOnPC", id);
         });*/
     },
-
     deletePC(context, id) {
       /*db.collection("Users")
         .doc(auth.currentUser.uid)
@@ -351,14 +349,12 @@ export default new Vuex.Store({
       );
       referenciatemp.remove();
     },
-
     deleteDevice(context, id) {
       const referenciatemp = RTDBdatabase.ref(
         "UsersData/" + auth.currentUser.uid + "/Devices/"+ id
       );
       referenciatemp.remove();
     },
-
     updatePC(context, PC) {
       //RTDB
       const referenciatemp = RTDBdatabase.ref(
@@ -390,7 +386,6 @@ export default new Vuex.Store({
           context.commit("updatePC", PC);
         });*/
     },
-
     updateDevice(context, PC) {
       //RTDB
       const referenciatemp = RTDBdatabase.ref(
@@ -403,7 +398,6 @@ export default new Vuex.Store({
         timestamp: new Date(),
       });
     },
-
     updatePCListener(context, PC) {
       context.commit("updatePC", PC);
     },
