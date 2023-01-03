@@ -45,7 +45,6 @@ new Vue({
 }).$mount("#app");
 
 auth.onAuthStateChanged((user) => {
-  console.log("print del user desde el main ", user);
   if (user) store.commit("setAuthorization", true);
   else store.commit("setAuthorization", false);
 });

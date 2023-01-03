@@ -47,7 +47,7 @@
               <v-btn v-if="showEdit" icon @click.stop="setEditModal(pc)">
                 <v-icon color="blue-grey lighten-1">mdi-pencil</v-icon>
               </v-btn>
-              <v-btn v-else-if="showDelete" icon @click.stop="deletePC(pc.id)">
+              <v-btn v-else-if="showDelete" icon @click.stop="deletePC(pc)">
                 <v-icon color="red lighten-2">mdi-close-thick</v-icon>
               </v-btn>
               <v-btn v-else icon @click.stop="setDetailModal(pc)">
@@ -142,11 +142,10 @@
           <span class="text-h5">PC Details</span>
         </v-card-title>
         <v-card-text>
-          PC Name: {{ thisPCTitle }} <br />
-          PC ID: {{ thisPCID }}<br />
-          PC On: {{ thisPCOn }}<br />
-          PC Mac: {{ thisPCMAC }}<br />
-          PC IP: {{ thisPCIP }}<br />
+          <b>Name:</b> {{ thisPCTitle }} <br />
+          <b>Status:</b> {{ thisStatus }}<br />
+          <b>Mac:</b> {{ thisPCMAC }}<br />
+          <b>IP:</b> {{ thisPCIP }}<br />
         </v-card-text>
 
         <v-card-actions>
@@ -246,7 +245,6 @@ export default {
 
       timer: null,
 
-      loader: null,
       loading5: false,
 
       showDelete: false,
@@ -275,17 +273,10 @@ export default {
       thisPCTimestamp: "",
       thisPCTurnOn: false,
       thisPCresult: "",
+      thisStatus: "",
     };
   },
   watch: {
-    loader() {
-      const l = this.loader;
-      this[l] = !this[l];
-
-      setTimeout(() => (this[l] = false), 3000);
-
-      this.loader = null;
-    },
   },
   methods: {
     modificarEstado(pc) {
@@ -336,8 +327,8 @@ export default {
         });
       }, 30000);
     },
-    deletePC(id) {
-      this.$store.dispatch("deletePC", id);
+    deletePC(pc) {
+      this.$store.dispatch("deletePC", pc);
     },
     addPC() {
       this.$store.dispatch("addPC", {
@@ -363,6 +354,10 @@ export default {
       this.thisPCTimestamp = pc.timestamp;
       this.thisPCresult = pc.result;
       this.detailDialog = !this.detailDialog;
+      if (pc.result == "disconnected") this.thisStatus = "Disconnected";
+      else if (pc.result == "notTurnedOn") this.thisStatus = "Off";
+      else if (pc.result == "turnedOn") this.thisStatus = "On";
+      else this.thisStatus = "Processing";
     },
     setEditModal(pc) {
       this.thisPCTitle = pc.title;
@@ -448,40 +443,5 @@ export default {
 #create .v-btn--floating {
   position: relative;
 }
-.custom-loader {
-  animation: loader 1s infinite;
-  display: flex;
-}
-@-moz-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-webkit-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@-o-keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-@keyframes loader {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
 </style>

@@ -27,9 +27,10 @@ const routes = [
   { path: "/feed", component: () => import("../views/Feed.vue"), /*meta: {requiresAuth: true}*/ },
   //{ path: "/login", component: () => import("../views/Login.vue") },
   //{ path: "/sign-in", component: () => import("../views/SignIn.vue") },
-  { path: "/login2", component: () => import("../views/Login2.vue") },
-  { path: "/sign-up2", component: () => import("../views/Signup2.vue") },
+  { path: "/login", component: () => import("../views/Login2.vue") },
+  { path: "/sign-up", component: () => import("../views/Signup2.vue") },
   { path: "/PCs", component: () => import("../views/PCs.vue"), meta: {requiresAuth: true}, },
+  { path: "/logs", component: () => import("../views/LogView.vue"), meta: {requiresAuth: true}, },
 ];
 
 const router = new VueRouter({
@@ -40,7 +41,7 @@ router.beforeEach((to, from, next) => {
   const authenticatedUser = firebase.auth().currentUser;
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
-  if(requiresAuth && ! authenticatedUser) next('login2')
+  if(requiresAuth && ! authenticatedUser) next('login')
   else next()
 
   

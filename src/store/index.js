@@ -27,6 +27,7 @@ export default new Vuex.Store({
     username: null,
     pcList: [],
     deviceList: [],
+    logList:[],
   },
   getters: {},
   mutations: {
@@ -96,8 +97,11 @@ export default new Vuex.Store({
     retrievePCs(state, PCs) {
       state.pcList = PCs;
     },
-    retrieveDevices(state, PCs) {
-      state.deviceList = PCs;
+    retrieveDevices(state, Devices) {
+      state.deviceList = Devices;
+    },
+    retrieveLogs(state, Logs) {
+      state.logList = Logs;
     },
     emptyPCs(state) {
       while (state.pcList.length > 0) {
@@ -107,6 +111,11 @@ export default new Vuex.Store({
     emptyDevices(state) {
       while (state.deviceList.length > 0) {
         state.deviceList.pop();
+      }
+    },
+    emptyLogs(state) {
+      while (state.logList.length > 0) {
+        state.logList.pop();
       }
     },
     setDeviceID(state, id){
@@ -157,7 +166,6 @@ export default new Vuex.Store({
               let tempPCs = [];
             
               snapshot.forEach((doc) => {
-                console.log("DESCARGO ESTO: ", doc);
                 const data = {
                   id: doc.key,
                   mac: doc.val().mac,
@@ -178,7 +186,6 @@ export default new Vuex.Store({
             }
           );
         } else {
-          console.log("No estás logueado compai");
           context.commit("emptyPCs");
         }
       });
@@ -195,7 +202,6 @@ export default new Vuex.Store({
               let tempPCs = [];
             
               snapshot.forEach((doc) => {
-                console.log("DESCARGO ESTOS DEVICES: ", doc);
                 const data = {
                   id: doc.key,
                   mac: doc.val().mac,
@@ -212,8 +218,44 @@ export default new Vuex.Store({
             }
           );
         } else {
-          console.log("No estás logueado compai");
           context.commit("emptyDevices");
+        }
+      });
+    },
+    retrieveLogs(context) {
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          const referenciatemp = RTDBdatabase.ref(
+            "UsersData/" + auth.currentUser.uid + "/Logs"
+          );
+          referenciatemp.on(
+            "value",
+            (snapshot) => {
+              let tempPCs = [];
+            
+              snapshot.forEach((doc) => {
+                const data = {
+                  id: doc.key,
+                  mac: doc.val().mac,
+                  ip: doc.val().ip,
+                  title: doc.val().title,
+                  timestamp: doc.val().timestamp,
+                  action: doc.val().action,
+                  type: doc.val().type,
+                };
+                tempPCs.push(data);
+              });
+              const tempPCsSorted = tempPCs.sort((a, b) => {
+                return new Date(b.timestamp) - new Date(a.timestamp);
+              });
+              context.commit("retrieveLogs", tempPCsSorted);
+            },
+            (errorObject) => {
+              console.log("The read failed: " + errorObject.name);
+            }
+          );
+        } else {
+          context.commit("emptyLogs");
         }
       });
     },
@@ -250,7 +292,20 @@ export default new Vuex.Store({
         result: "disconnected",
       }).key;
 
-      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Devices/"+ this.state.currentDevice + "/PCs/"+key), {
+      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Devices/"+ this.state.currentDevice + "/PCs/" + key), {
+        timestamp: new Date(),
+      });
+
+      var logKey = push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs"), {
+        title: PC.title,
+        mac: PC.mac,
+        ip: PC.ip,
+        timestamp: myTimestamp,
+        action: "Add",
+        type: "PC"
+      }).key;
+
+      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs/" + logKey), {
         timestamp: new Date(),
       });
       /*.then((docRef) => {
@@ -274,6 +329,18 @@ export default new Vuex.Store({
         timestamp: myTimestamp,
       }).key;
       update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Devices/"+key), {
+        timestamp: new Date(),
+      });
+      var logKey = push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs"), {
+        title: PC.title,
+        mac: PC.mac,
+        ip: PC.ip,
+        timestamp: myTimestamp,
+        action: "Add",
+        type: "Device"
+      }).key;
+
+      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs/" + logKey), {
         timestamp: new Date(),
       });
       /*.then((docRef) => {
@@ -301,6 +368,18 @@ export default new Vuex.Store({
         PCID: PC.id,
         deviceID: this.state.currentDevice,
       });
+      
+      var logKey = push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs"), {
+        title: PC.title,
+        mac: PC.mac,  
+        ip: PC.ip,
+        timestamp: myTimestamp,
+        action: "Ping",
+        type: "PC"
+      }).key;
+      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs/" + logKey), {
+        timestamp: new Date(),
+      });
     },
     turnOnPC(context, PC) {
       //RTDB
@@ -315,6 +394,18 @@ export default new Vuex.Store({
         timestamp: myTimestamp,
         PCID: PC.id,
         deviceID: this.state.currentDevice,
+      });
+      
+      var logKey = push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs"), {
+        title: PC.title,
+        mac: PC.mac,  
+        ip: PC.ip,
+        timestamp: myTimestamp,
+        action: "Turn On",
+        type: "PC"
+      }).key;
+      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs/" + logKey), {
+        timestamp: new Date(),
       });
       //FIRESTORE
       /*db.collection("Users")
@@ -332,7 +423,7 @@ export default new Vuex.Store({
           context.commit("turnOnPC", id);
         });*/
     },
-    deletePC(context, id) {
+    deletePC(context, PC) {
       /*db.collection("Users")
         .doc(auth.currentUser.uid)
         .collection("PCs")
@@ -344,8 +435,20 @@ export default new Vuex.Store({
       const delPCref = RTDBdatabase.ref(
         "UsersData/" + auth.currentUser.uid + "/PCs" + id
       );*/
+      var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+      var logKey = push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs"), {
+        title: PC.title,
+        mac: PC.mac,  
+        ip: PC.ip,
+        timestamp: myTimestamp,
+        action: "Removed",
+        type: "PC"
+      }).key;
+      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs/" + logKey), {
+        timestamp: new Date(),
+      });
       const referenciatemp = RTDBdatabase.ref(
-        "UsersData/" + auth.currentUser.uid + "/Devices/"+ this.state.currentDevice + "/PCs/"+ id
+        "UsersData/" + auth.currentUser.uid + "/Devices/"+ this.state.currentDevice + "/PCs/"+ PC.id
       );
       referenciatemp.remove();
     },
@@ -368,6 +471,18 @@ export default new Vuex.Store({
         timestamp: new Date(),
         turnOn: PC.turnOn,
         result: PC.result,
+      });
+      var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+      var logKey = push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs"), {
+        title: PC.title,
+        mac: PC.mac,  
+        ip: PC.ip,
+        timestamp: myTimestamp,
+        action: "Modified",
+        type: "PC"
+      }).key;
+      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs/" + logKey), {
+        timestamp: new Date(),
       });
       //FIRESTORE
       /*db.collection("Users")
@@ -395,6 +510,18 @@ export default new Vuex.Store({
         title: PC.title,
         mac: PC.mac,
         ip: PC.ip,
+        timestamp: new Date(),
+      });
+      var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+      var logKey = push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs"), {
+        title: PC.title,
+        mac: PC.mac,  
+        ip: PC.ip,
+        timestamp: myTimestamp,
+        action: "Modified",
+        type: "Device"
+      }).key;
+      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs/" + logKey), {
         timestamp: new Date(),
       });
     },

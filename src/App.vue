@@ -30,7 +30,7 @@
       <div v-else>
         <v-list dense nav>
           <v-list-item
-            v-for="item in items.slice(1, 2)"
+            v-for="item in items.slice(2, 3)"
             :key="item.title"
             :to="item.to"
             link
@@ -160,15 +160,16 @@ export default {
     items: [
       {
         title: "Devices",
-        icon: "mdi-format-list-checks",
+        icon: "mdi-chip",
         to: "/",
         mostrar: false,
       },
+      { title: "Logs", icon: "mdi-file-document-outline", to: "/logs", mostrar: false },
       { title: "About", icon: "mdi-help-box", to: "/about", mostrar: true },
     ],
     options: [
-      { title: "Sign in", to: "/sign-up2" },
-      { title: "Login", to: "/login2" },
+      { title: "Sign in", to: "/sign-up" },
+      { title: "Login", to: "/login" },
     ],
     exitOptions: [{ title: "Log out" }, { title: "Delete account" }],
   }),
@@ -182,7 +183,7 @@ export default {
       referenciatemp.remove();
       deleteUser(usuarioBorrado)
         .then(() => {
-          this.$router.replace("login2");
+          this.$router.replace("login");
         })
         .catch((err) => {
           console.log(`Error - ${err.message}`);
@@ -195,7 +196,7 @@ export default {
           .then(() => {
             this.$store.dispatch("emptyPCs");
             this.$store.commit("setAuthorization", false);
-            this.$router.replace("login2");
+            this.$router.replace("login");
           })
           .catch((err) => {
             console.log(`Error - ${err.message}`);
@@ -204,11 +205,6 @@ export default {
       if (index == 1) {
         this.deleteDialog = true;
       }
-    },
-    userAuthChange() {
-      auth.onAuthStateChanged((user) => {
-        console.log(user);
-      });
     },
   },
 

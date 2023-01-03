@@ -2,7 +2,7 @@
   <div class="Devices">
     <v-list flat class="pt-0">
       <div v-for="pc in this.$store.state.deviceList" :key="pc.id">
-        <v-list-item  @click.stop="setDeviceID(pc.id)">
+        <v-list-item @click.stop="setDeviceID(pc.id)">
           <template v-slot:default>
             <v-list-item-action>
               <v-icon color="cyan lighten-2">mdi-chip</v-icon>
@@ -20,8 +20,11 @@
               <v-btn v-if="showEdit" icon @click.stop="setEditModal(pc)">
                 <v-icon color="blue-grey lighten-1">mdi-pencil</v-icon>
               </v-btn>
-              <v-btn v-if="showDelete" icon @click.stop="deletePC(pc.id)">
+              <v-btn v-else-if="showDelete" icon @click.stop="deleteDevice(pc.id)">
                 <v-icon color="red lighten-2">mdi-close-thick</v-icon>
+              </v-btn>
+              <v-btn v-else icon @click.stop="setDetailModal(pc)">
+                <v-icon>mdi-information</v-icon>
               </v-btn>
             </v-list-item-action>
           </template>
@@ -52,17 +55,56 @@
           <v-icon>mdi-plus</v-icon>
         </v-btn>
         <v-btn
+          v-if="showEdit"
+          fab
+          dark
+          small
+          color="light-green "
+          @click="
+            showDelete = false;
+            showEdit = false;
+          "
+        >
+          <v-icon>mdi-pencil-off</v-icon>
+        </v-btn>
+        <v-btn
+          v-else
+          fab
+          dark
+          small
+          color="light-green "
+          @click="
+            showDelete = false;
+            showEdit = true;
+          "
+        >
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn
+          v-if="showDelete"
           fab
           dark
           small
           color="red"
           @click="
-            showDelete = !showDelete;
-            showEdit = !showEdit;
+            showDelete = false;
+            showEdit = false;
           "
         >
-          <v-icon v-if="showDelete">mdi-delete-off</v-icon>
-          <v-icon v-else>mdi-delete</v-icon>
+          <v-icon>mdi-delete-off</v-icon>
+        </v-btn>
+        <v-btn
+          v-else
+          fab
+          dark
+          small
+          color="red"
+          @click="
+            showDelete = true;
+            showEdit = false;
+          "
+        >
+          <v-icon>mdi-delete</v-icon>
         </v-btn>
       </v-speed-dial>
     </div>
@@ -98,20 +140,37 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+    <!--EL Modal de ver detalles-->
+    <v-dialog v-model="detailDialog" max-width="500px">
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">Device Details</span>
+        </v-card-title>
+        <v-card-text>
+          <b>Name:</b> {{ thisPCTitle }} <br />
+          <b>Mac:</b> {{ thisPCMAC }}<br />
+          <b>Description:</b> {{ thisPCIP }}<br />
+        </v-card-text>
 
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn text color="primary" @click="detailDialog = false">Ok</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <!--EL Modal de editar-->
     <v-dialog v-model="dialog2" max-width="500px">
       <v-card>
         <v-card-title>
-          <span class="text-h5">Edit PC</span>
+          <span class="text-h5">Edit Device</span>
         </v-card-title>
         <v-card-text>
-          <v-text-field label="File name" v-model="thisPCTitle"></v-text-field>
+          <v-text-field label="Device name" v-model="thisPCTitle"></v-text-field>
           <v-text-field label="MAC Address" v-model="thisPCMAC"></v-text-field>
           <small class="grey--text">* MAC Format: AA:BB:CC:DD:EE:FF</small>
 
-          <v-text-field label="IP Address" v-model="thisPCIP"></v-text-field>
-          <small class="grey--text">* IP Format: xxx.xxx.xxx.xxx</small>
+          <v-text-field label="Description" v-model="thisPCIP"></v-text-field>
         </v-card-text>
 
         <v-card-actions>
@@ -122,7 +181,7 @@
             color="primary"
             @click="
               dialog2 = false;
-              updatePC(thisPCID);
+              updateDevice(thisPCID);
             "
             >Submit</v-btn
           >
@@ -142,9 +201,10 @@ export default {
     return {
       dialog1: false,
       dialog2: false,
+      detailDialog: false,
 
       showDelete: false,
-      showEdit: true,
+      showEdit: false,
 
       direction: "top",
       fab: false,
@@ -157,9 +217,9 @@ export default {
       left: false,
       transition: "slide-y-reverse-transition",
 
-      newPCMAC: "00:00:00:00:00:00",
-      newPCTitle: "Dispositivo nuevo",
-      newPCIP: "Descripción del dispositivo",
+      newPCMAC: "",
+      newPCTitle: "",
+      newPCIP: "",
       toRoute: "/PCs",
       thisDeviceID: "",
       thisPCIP: "",
@@ -172,10 +232,7 @@ export default {
     };
   },
   methods: {
-    modificarEstado(id) {
-      this.$store.dispatch("turnOnPC", id);
-    },
-    deletePC(id) {
+    deleteDevice(id) {
       this.$store.dispatch("deleteDevice", id);
     },
     addDevice() {
@@ -198,11 +255,11 @@ export default {
       this.thisPCTimestamp = pc.timestamp;
       this.dialog2 = !this.dialog2;
     },
-    setDeviceID(id){
+    setDeviceID(id) {
       this.$store.dispatch("setDeviceID", id);
       this.$router.replace("PCs");
     },
-    updatePC(id) {
+    updateDevice(id) {
       this.$store.dispatch("updateDevice", {
         title: this.thisPCTitle,
         id: this.thisPCID,
@@ -210,33 +267,16 @@ export default {
         ip: this.thisPCIP,
       });
     },
+    setDetailModal(pc) {
+      this.thisPCTitle = pc.title;
+      this.thisPCIP = pc.ip;
+      this.thisPCMAC = pc.mac;
+      this.thisPCTimestamp = pc.timestamp;
+      this.detailDialog = !this.detailDialog;
+    },
   },
   created() {
     this.$store.dispatch("retrieveDevices");
-    /*db.collection("Users")
-      .doc(auth.currentUser.uid)
-      .collection("PCs")
-      .onSnapshot((res) => {
-        const changes = res.docChanges();
-
-        changes.forEach((change) => {
-          if (change.type === "modified") {
-            console.log(
-              "Modified PC: ",
-              change.doc.data(),
-              "ID: ",
-              change.doc.id
-            );
-            this.$store.dispatch("updatePCListener", {
-              title: change.doc.data().title,
-              id: change.doc.id,
-              mac: change.doc.data().mac,
-              on: change.doc.data().on,
-              turnOn: change.doc.data().turnOn,
-            });
-          }
-        });
-      });*/
   },
 };
 </script>
