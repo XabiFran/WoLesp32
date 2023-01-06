@@ -5,7 +5,7 @@
         <v-list-item @click.stop="setDeviceID(pc.id)">
           <template v-slot:default>
             <v-list-item-action>
-              <v-icon color="cyan lighten-2">mdi-chip</v-icon>
+              <v-icon color="#1e54b4">mdi-chip</v-icon>
             </v-list-item-action>
 
             <v-list-item-content>
@@ -20,7 +20,7 @@
               <v-btn v-if="showEdit" icon @click.stop="setEditModal(pc)">
                 <v-icon color="blue-grey lighten-1">mdi-pencil</v-icon>
               </v-btn>
-              <v-btn v-else-if="showDelete" icon @click.stop="deleteDevice(pc.id)">
+              <v-btn v-else-if="showDelete" icon @click.stop="deleteDevice(pc)">
                 <v-icon color="red lighten-2">mdi-close-thick</v-icon>
               </v-btn>
               <v-btn v-else icon @click.stop="setDetailModal(pc)">
@@ -46,7 +46,7 @@
         :transition="transition"
       >
         <template v-slot:activator>
-          <v-btn v-model="fab" color="blue darken-2" dark fab>
+          <v-btn v-model="fab" color="#1e54b4" dark fab>
             <v-icon v-if="fab"> mdi-close </v-icon>
             <v-icon v-else> mdi-chip </v-icon>
           </v-btn>
@@ -232,8 +232,8 @@ export default {
     };
   },
   methods: {
-    deleteDevice(id) {
-      this.$store.dispatch("deleteDevice", id);
+    deleteDevice(pc) {
+      this.$store.dispatch("deleteDevice", pc);
     },
     addDevice() {
       this.$store.dispatch("addDevice", {

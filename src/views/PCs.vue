@@ -11,7 +11,7 @@
             </v-list-item-action>
             <v-list-item-action>
               <v-btn
-                color="blue darken-2"
+                color="#1e54b4"
                 fab
                 dark
                 class="mr-5 ml-n5"
@@ -21,18 +21,18 @@
               </v-btn>
             </v-list-item-action>
             <v-list-item-action v-if="pc.result == 'turnedOn'">
-              <v-icon class="mr-5" color="light-green accent-3"
-                >mdi-circle</v-icon
+              <v-icon class="mr-5" color="green lighten-2"
+                >mdi-check-outline</v-icon
               >
             </v-list-item-action>
             <v-list-item-action v-else-if="pc.result == 'processing'">
-              <v-icon class="mr-5" color="amber">mdi-circle</v-icon>
+              <v-icon class="mr-5" color="amber darken-2">mdi-progress-clock</v-icon>
             </v-list-item-action>
             <v-list-item-action v-else-if="pc.result == 'disconnected'">
-              <v-icon class="mr-5">mdi-circle</v-icon>
+              <v-icon class="mr-5">mdi-wifi-off</v-icon>
             </v-list-item-action>
             <v-list-item-action v-else-if="pc.result == 'notTurnedOn'">
-              <v-icon class="mr-5" color="red darken-1">mdi-circle</v-icon>
+              <v-icon class="mr-5" color="red darken-1">mdi-close</v-icon>
             </v-list-item-action>
 
             <v-list-item-content>
@@ -73,7 +73,7 @@
         :transition="transition"
       >
         <template v-slot:activator>
-          <v-btn v-model="fab" color="blue darken-2" dark fab>
+          <v-btn v-model="fab" color="#1e54b4" dark fab>
             <v-icon v-if="fab"> mdi-close </v-icon>
             <v-icon v-else> mdi-desktop-classic </v-icon>
           </v-btn>

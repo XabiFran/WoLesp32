@@ -1,10 +1,12 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer v-model="drawer" app color="#1e54b4">
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6"> WOLESP </v-list-item-title>
-          <v-list-item-subtitle> {{ subtitulo }} </v-list-item-subtitle>
+          <v-img max-height="120" max-width="170" src="LogoWolesp.jpg"></v-img>
+          <v-list-item-subtitle style="color: white">
+             <!--{{ subtitulo }}-->
+          </v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
 
@@ -18,11 +20,13 @@
             link
           >
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon style="color: white">{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title style="color: white">{{
+                item.title
+              }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -47,17 +51,13 @@
       </div>
     </v-navigation-drawer>
 
-    <v-app-bar app color="primary" dark src="vaporwave.jpg" prominent>
-      <template v-slot:img="{ props }">
-        <v-img
-          v-bind="props"
-          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
-        ></v-img>
-      </template>
-
+    <v-app-bar app color="#1e54b4" dark>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-app-bar-title>WOLESP</v-app-bar-title>
+      <v-container>
+        <v-row justify="center">
+          <v-img max-height="100" max-width="140" src="LogoWolesp.jpg"></v-img>
+        </v-row>
+      </v-container>
 
       <v-spacer></v-spacer>
 
@@ -164,11 +164,16 @@ export default {
         to: "/",
         mostrar: false,
       },
-      { title: "Logs", icon: "mdi-file-document-outline", to: "/logs", mostrar: false },
+      {
+        title: "Logs",
+        icon: "mdi-file-document-outline",
+        to: "/logs",
+        mostrar: false,
+      },
       { title: "About", icon: "mdi-help-box", to: "/about", mostrar: true },
     ],
     options: [
-      { title: "Sign in", to: "/sign-up" },
+      { title: "Sign up", to: "/sign-up" },
       { title: "Login", to: "/login" },
     ],
     exitOptions: [{ title: "Log out" }, { title: "Delete account" }],

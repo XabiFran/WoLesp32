@@ -441,7 +441,7 @@ export default new Vuex.Store({
         mac: PC.mac,  
         ip: PC.ip,
         timestamp: myTimestamp,
-        action: "Removed",
+        action: "Remove",
         type: "PC"
       }).key;
       update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs/" + logKey), {
@@ -452,9 +452,21 @@ export default new Vuex.Store({
       );
       referenciatemp.remove();
     },
-    deleteDevice(context, id) {
+    deleteDevice(context, PC) {
+      var myTimestamp = firebase.firestore.Timestamp.fromDate(new Date());
+      var logKey = push(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs"), {
+        title: PC.title,
+        mac: PC.mac,  
+        ip: PC.ip,
+        timestamp: myTimestamp,
+        action: "Remove",
+        type: "Device"
+      }).key;
+      update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs/" + logKey), {
+        timestamp: new Date(),
+      });
       const referenciatemp = RTDBdatabase.ref(
-        "UsersData/" + auth.currentUser.uid + "/Devices/"+ id
+        "UsersData/" + auth.currentUser.uid + "/Devices/"+ PC.id
       );
       referenciatemp.remove();
     },
@@ -478,7 +490,7 @@ export default new Vuex.Store({
         mac: PC.mac,  
         ip: PC.ip,
         timestamp: myTimestamp,
-        action: "Modified",
+        action: "Modify",
         type: "PC"
       }).key;
       update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs/" + logKey), {
@@ -518,7 +530,7 @@ export default new Vuex.Store({
         mac: PC.mac,  
         ip: PC.ip,
         timestamp: myTimestamp,
-        action: "Modified",
+        action: "Modify",
         type: "Device"
       }).key;
       update(ref(RTDBdatabase, "UsersData/" + auth.currentUser.uid + "/Logs/" + logKey), {
