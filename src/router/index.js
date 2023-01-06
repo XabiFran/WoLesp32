@@ -37,16 +37,17 @@ const router = new VueRouter({
   routes,
 });
 
+/**
+ * Función encargada de controlar el redireccionamiento según la autenticación.
+ * 
+ * @param {string} to - Página a la que se quiere acceder.
+ */
 router.beforeEach((to, from, next) => {
   const authenticatedUser = firebase.auth().currentUser;
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
 
   if(requiresAuth && ! authenticatedUser) next('login')
   else next()
-
-  
-  /*if(state.state.currentDevice == null) next('/')
-  else next()*/
   
 });
 

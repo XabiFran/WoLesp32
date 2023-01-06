@@ -40,11 +40,11 @@
             link
           >
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon style="color: white">{{ item.icon }}</v-icon>
             </v-list-item-icon>
 
             <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title style="color: white">{{ item.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
         </v-list>
@@ -180,6 +180,10 @@ export default {
   }),
   computed: {},
   methods: {
+    /**
+     * Función encargada de borrar la cuenta del usuario.
+     * 
+     */
     handleDelete() {
       const usuarioBorrado = auth.currentUser;
       const referenciatemp = RTDBdatabase.ref(
@@ -194,6 +198,11 @@ export default {
           console.log(`Error - ${err.message}`);
         });
     },
+    /**
+     * Función encargada de cerrar sesión o mostrar el modal de confirmación de borrar cuenta.
+     * 
+     * @param {int} index - ID de la opción elegida.
+     */
     handleExitOption(index) {
       if (index == 0) {
         auth
@@ -214,28 +223,6 @@ export default {
   },
 
   created() {
-    /*console.log("print del ñeet desde el main ");
-    auth.onAuthStateChanged((user) => {
-      if (this.$store.state.autorized) {
-        console.log("USUARIO:"+user);
-        var docRef = db.collection("Users").doc(auth.currentUser.uid);
-        docRef
-          .get()
-          .then((doc) => {
-            if (doc.exists) {
-              console.log("Document data:", doc.data());
-              this.subtitulo = doc.data().username;
-            } else {
-              console.log("No such document!");
-            }
-          })
-          .catch((error) => {
-            console.log("Error getting document:", error);
-          });
-      } else {
-        this.subtitulo = "PC Checker";
-      }
-    });*/
   },
 };
 </script>

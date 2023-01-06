@@ -82,10 +82,18 @@ export default {
   },
 
   methods: {
+    /**
+     * Función encargada de redirigir al usuario a la vista de dispositivos.
+     * 
+     */
     handleSuccess() {
       this.$store.commit("setAuthorization", true);
       this.$router.replace("/");
     },
+    /**
+     * Función encargada de acceder con las credenciales del usuario.
+     * 
+     */
     loginUser() {
       let r = this;
       r.xhrRequest = true;

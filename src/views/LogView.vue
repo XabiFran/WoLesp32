@@ -49,6 +49,9 @@ export default {
   methods: {
     
   },
+  /**
+   * Función encargada de enviar la orden de mostrar los registros a Actions cuando se carga la vista.
+   */
   created() {
     this.$store.dispatch("retrieveLogs");
   },

@@ -261,9 +261,9 @@ export default {
       left: false,
       transition: "slide-y-reverse-transition",
 
-      newPCMAC: "00:00:00:00:00:00",
-      newPCTitle: "hola",
-      newPCIP: "192.168.1.1",
+      newPCMAC: "",
+      newPCTitle: "",
+      newPCIP: "",
 
       thisPCIP: "",
       thisPCMAC: "",
@@ -278,7 +278,12 @@ export default {
   },
   watch: {
   },
-  methods: {
+  methods: { 
+    /**
+     * Función encargada de llevar la orden de encendido y una actualización del equipo a Actions. También se encarga de empezar el timeout de conexión con el ESP32, de 30 segundos.
+     * 
+     * @param {JSON} pc - El equipo que se quiere encender.
+     */
     modificarEstado(pc) {
       this.$store.dispatch("turnOnPC", pc);
       this.$store.dispatch("updatePC", {
@@ -303,6 +308,11 @@ export default {
         });
       }, 30000);
     },
+    /**
+     * Función encargada de llevar la orden de encendido y una actualización del equipo a Actions. También se encarga de empezar el timeout de conexión con el ESP32, de 30 segundos.
+     * 
+     * @param {JSON} pc - El equipo que se quiere pingear.
+     */
     pingearPC(pc) {
       this.$store.dispatch("updatePC", {
         title: pc.title,
@@ -327,9 +337,18 @@ export default {
         });
       }, 30000);
     },
+    /**
+     * Función encargada de enviar la orden de borrado a Actions.
+     * 
+     * @param {JSON} pc - El equipo que se quiere eliminar.
+     */
     deletePC(pc) {
       this.$store.dispatch("deletePC", pc);
     },
+    /**
+     * Función encargada de enviar la orden de añadir un nuevo pc con sus datos a Actions.
+     * 
+     */
     addPC() {
       this.$store.dispatch("addPC", {
         id: Date.now(),
@@ -344,6 +363,11 @@ export default {
       this.newPCTitle = "";
       this.newPCMAC = "";
     },
+    /**
+     * Función encargada de invocar el modal de ver detalles de un pc y cargarlo con sus datos.
+     * 
+     * @param {JSON} pc - El equipo que se quiere mostrar.
+     */
     setDetailModal(pc) {
       this.thisPCTitle = pc.title;
       this.thisPCIP = pc.ip;
@@ -359,6 +383,11 @@ export default {
       else if (pc.result == "turnedOn") this.thisStatus = "On";
       else this.thisStatus = "Processing";
     },
+    /**
+     * Función encargada de invocar el modal de editar un pc y cargarlo con sus datos.
+     * 
+     * @param {JSON} pc - El equipo que se quiere editar.
+     */
     setEditModal(pc) {
       this.thisPCTitle = pc.title;
       this.thisPCIP = pc.ip;
@@ -370,7 +399,11 @@ export default {
       this.thisPCresult = pc.result;
       this.dialog2 = !this.dialog2;
     },
-    updatePC(id) {
+    /**
+     * Función encargada de enviar los datos de un pc actualizado a Actions.
+     * 
+     */
+    updatePC() {
       this.$store.dispatch("updatePC", {
         title: this.thisPCTitle,
         id: this.thisPCID,
@@ -382,6 +415,10 @@ export default {
       });
     },
   },
+  /**
+   * Función encargada de enviar la orden de mostrar los pcs a Actions cuando se carga la vista. También se encarga de cancelar el timeout de ping o encendido.
+   * 
+   */
   created() {
     if (this.$store.state.currentDevice != null)
       this.$store.dispatch("retrievePCs");

@@ -232,9 +232,18 @@ export default {
     };
   },
   methods: {
-    deleteDevice(pc) {
-      this.$store.dispatch("deleteDevice", pc);
+    /**
+     * Función encargada de enviar la orden de borrado a Actions.
+     * 
+     * @param {JSON} deleteDevice - El dispositivo que se quiere encender.
+     */
+    deleteDevice(deleteDevice) {
+      this.$store.dispatch("deleteDevice", deleteDevice);
     },
+    /**
+     * Función encargada de enviar la orden de añadir un nuevo dispositivo con sus datos a Actions.
+     * 
+     */
     addDevice() {
       this.$store.dispatch("addDevice", {
         id: Date.now(),
@@ -247,19 +256,33 @@ export default {
       this.newPCTitle = "";
       this.newPCMAC = "";
     },
-    setEditModal(pc) {
-      this.thisPCTitle = pc.title;
-      this.thisPCIP = pc.ip;
-      this.thisPCMAC = pc.mac;
-      this.thisPCID = pc.id;
-      this.thisPCTimestamp = pc.timestamp;
+    /**
+     * Función encargada de invocar el modal de editar un dispositivo y cargarlo con sus datos.
+     * 
+     * @param {JSON} editDevice - El dispositivo que se quiere editar.
+     */
+    setEditModal(editDevice) {
+      this.thisPCTitle = editDevice.title;
+      this.thisPCIP = editDevice.ip;
+      this.thisPCMAC = editDevice.mac;
+      this.thisPCID = editDevice.id;
+      this.thisPCTimestamp = editDevice.timestamp;
       this.dialog2 = !this.dialog2;
     },
+    /**
+     * Función encargada de enviar el ID del dispositivo seleccionado a Actions y redirigir a la vista de equipos.
+     * 
+     * @param {string} id - El id del dispositivo seleccionado.
+     */
     setDeviceID(id) {
       this.$store.dispatch("setDeviceID", id);
       this.$router.replace("PCs");
     },
-    updateDevice(id) {
+    /**
+     * Función encargada de enviar los datos de un dispositivo actualizado a Actions.
+     * 
+     */
+    updateDevice() {
       this.$store.dispatch("updateDevice", {
         title: this.thisPCTitle,
         id: this.thisPCID,
@@ -267,14 +290,23 @@ export default {
         ip: this.thisPCIP,
       });
     },
-    setDetailModal(pc) {
-      this.thisPCTitle = pc.title;
-      this.thisPCIP = pc.ip;
-      this.thisPCMAC = pc.mac;
-      this.thisPCTimestamp = pc.timestamp;
+    /**
+     * Función encargada de invocar el modal de ver detalles de un dispositivo y cargarlo con sus datos.
+     * 
+     * @param {JSON} detailDevice - El dispositivo que se quiere mostrar.
+     */
+    setDetailModal(detailDevice) {
+      this.thisPCTitle = detailDevice.title;
+      this.thisPCIP = detailDevice.ip;
+      this.thisPCMAC = detailDevice.mac;
+      this.thisPCTimestamp = detailDevice.timestamp;
       this.detailDialog = !this.detailDialog;
     },
   },
+  /**
+   * Función encargada de enviar la orden de mostrar los dispositivos a Actions cuando se carga la vista.
+   * 
+   */
   created() {
     this.$store.dispatch("retrieveDevices");
   },

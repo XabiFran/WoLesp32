@@ -79,23 +79,27 @@ export default {
   },
 
   methods: {
+    /**
+     * Función encargada de redirigir al usuario a la vista de dispositivos.
+     * 
+     */
     handleSuccess() {
       this.$router.replace("/");
     },
+    /**
+     * Función encargada de crear una nueva cuenta.
+     * 
+     */
     signupRequest() {
       let v = this;
       v.xhrRequest = true;
       auth
         .createUserWithEmailAndPassword(this.email, this.password)
         .then((cred) => {
-          //Parte de RTDB
+
           return set(ref(database, "UsersData/" + cred.user.uid), {
             username: this.username,
           });
-          //Parte de Firestore
-          /*db.collection("Users").doc(cred.user.uid).set({
-            username: this.username,
-          });*/
         })
         .then(() => {
           this.dialogSuccess = true;
