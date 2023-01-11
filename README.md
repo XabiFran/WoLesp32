@@ -70,7 +70,7 @@ firebase deploy
 
 En esta pequeña demostración se muestra el inicio de sesión de un usuario, y las acciones necesarias para encender un equipo de manera remota.
 
-<img src="public/demo.gif" width="600" height="489" align=center>
+<img src="public/demo.gif" width="600" height="422" align=center>
 
 
 <!-- CONTACT -->
