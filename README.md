@@ -4,7 +4,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/XabiFran/WoLesp32">
-    <img src="public/LogoWolespClear.png" alt="Logo" width="420" height="170">
+    <img src="public/favicon.ico" alt="Logo" width="250" height="250">
   </a>
 
 <h3 align="center">WOLESP</h3>
