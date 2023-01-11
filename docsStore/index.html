@@ -1,0 +1,3406 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset='utf-8'>
+  <title>wolesp-vuefire 0.1.0 | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='assets/bass.css' rel='stylesheet'>
+  <link href='assets/style.css' rel='stylesheet'>
+  <link href='assets/github.css' rel='stylesheet'>
+  <link href='assets/split.css' rel='stylesheet'>
+</head>
+<body class='documentation m0'>
+    <div class='flex'>
+      <div id='split-left' class='overflow-auto fs0 height-viewport-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'>wolesp-vuefire</h3>
+          <div class='mb1'><code>0.1.0</code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block input'
+            spellcheck='false'
+            autocapitalize='off'
+            autocorrect='off'
+            type='text' />
+          <div id='toc'>
+            <ul class='list-reset h5 py1-ul'>
+              
+                
+                <li><a
+                  href='#setauthorization'
+                  class="">
+                  setAuthorization
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#retrievepcs'
+                  class="">
+                  retrievePCs
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#retrievedevices'
+                  class="">
+                  retrieveDevices
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#retrievelogs'
+                  class="">
+                  retrieveLogs
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#emptypcs'
+                  class="">
+                  emptyPCs
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#emptydevices'
+                  class="">
+                  emptyDevices
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#emptylogs'
+                  class="">
+                  emptyLogs
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setdeviceid'
+                  class="">
+                  setDeviceID
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#emptypcs'
+                  class="">
+                  emptyPCs
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#emptydevices'
+                  class="">
+                  emptyDevices
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#emptylogs'
+                  class="">
+                  emptyLogs
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#retrievepcs'
+                  class="">
+                  retrievePCs
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#retrievedevices'
+                  class="">
+                  retrieveDevices
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#retrievelogs'
+                  class="">
+                  retrieveLogs
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addpc'
+                  class="">
+                  addPC
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#adddevice'
+                  class="">
+                  addDevice
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#pingearpc'
+                  class="">
+                  pingearPC
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#turnonpc'
+                  class="">
+                  turnOnPC
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#deletepc'
+                  class="">
+                  deletePC
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#deletedevice'
+                  class="">
+                  deleteDevice
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#updatepc'
+                  class="">
+                  updatePC
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#updatedevice'
+                  class="">
+                  updateDevice
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setdeviceid'
+                  class="">
+                  setDeviceID
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#modificarestado'
+                  class="">
+                  modificarEstado
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#pingearpc'
+                  class="">
+                  pingearPC
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#deletepc'
+                  class="">
+                  deletePC
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#addpc'
+                  class="">
+                  addPC
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setdetailmodal'
+                  class="">
+                  setDetailModal
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#seteditmodal'
+                  class="">
+                  setEditModal
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#updatepc'
+                  class="">
+                  updatePC
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#created'
+                  class="">
+                  created
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#handledelete'
+                  class="">
+                  handleDelete
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#handleexitoption'
+                  class="">
+                  handleExitOption
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#beforeeach'
+                  class="">
+                  beforeEach
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#deletedevice'
+                  class="">
+                  deleteDevice
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#adddevice'
+                  class="">
+                  addDevice
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#seteditmodal'
+                  class="">
+                  setEditModal
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setdeviceid'
+                  class="">
+                  setDeviceID
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#updatedevice'
+                  class="">
+                  updateDevice
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#setdetailmodal'
+                  class="">
+                  setDetailModal
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#created'
+                  class="">
+                  created
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#handlesuccess'
+                  class="">
+                  handleSuccess
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#loginuser'
+                  class="">
+                  loginUser
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#handlesuccess'
+                  class="">
+                  handleSuccess
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#signuprequest'
+                  class="">
+                  signupRequest
+                  
+                </a>
+                
+                </li>
+              
+                
+                <li><a
+                  href='#created'
+                  class="">
+                  created
+                  
+                </a>
+                
+                </li>
+              
+            </ul>
+          </div>
+          <div class='mt1 h6 quiet'>
+            <a href='https://documentation.js.org/reading-documentation.html'>Need help reading this?</a>
+          </div>
+        </div>
+      </div>
+      <div id='split-right' class='relative overflow-auto height-viewport-100'>
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setauthorization'>
+      setAuthorization
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de actualizar la autenticación.</p>
+
+    <div class='pre p1 fill-light mt0'>setAuthorization(state: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>, value: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El state de store.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>value</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a>)</code>
+	    Valor de la autenticación.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='retrievepcs'>
+      retrievePCs
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de rellenar la lista de equipos.</p>
+
+    <div class='pre p1 fill-light mt0'>retrievePCs(state: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>, PCs: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El state de store.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>PCs</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    Lista de equipos actualizada.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='retrievedevices'>
+      retrieveDevices
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de rellenar la lista de dispositivos.</p>
+
+    <div class='pre p1 fill-light mt0'>retrieveDevices(state: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>, Devices: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El state de store.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>Devices</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    Lista de dispositivos actualizada.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='retrievelogs'>
+      retrieveLogs
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de rellenar la lista de registros.</p>
+
+    <div class='pre p1 fill-light mt0'>retrieveLogs(state: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>, Logs: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El state de store.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>Logs</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a>&#x3C;<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a>>)</code>
+	    Lista de registros actualizada.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='emptypcs'>
+      emptyPCs
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de vaciar la lista de equipos.</p>
+
+    <div class='pre p1 fill-light mt0'>emptyPCs(state: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El state de store.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='emptydevices'>
+      emptyDevices
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de vaciar la lista de dispositivos.</p>
+
+    <div class='pre p1 fill-light mt0'>emptyDevices(state: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El state de store.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='emptylogs'>
+      emptyLogs
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de vaciar la lista de registros.</p>
+
+    <div class='pre p1 fill-light mt0'>emptyLogs(state: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El state de store.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setdeviceid'>
+      setDeviceID
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de actualizar el id del dispositivo seleccionado.</p>
+
+    <div class='pre p1 fill-light mt0'>setDeviceID(state: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>, id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>state</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El state de store.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    El id del dispositivo actual.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='emptypcs'>
+      emptyPCs
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar la orden de vaciar pcs a Mutations.</p>
+
+    <div class='pre p1 fill-light mt0'>emptyPCs(context: ActionContext&#x3C;{JSON}>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='emptydevices'>
+      emptyDevices
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar la orden de vaciar dispositivos a Mutations.</p>
+
+    <div class='pre p1 fill-light mt0'>emptyDevices(context: ActionContext&#x3C;{JSON}>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='emptylogs'>
+      emptyLogs
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar la orden de vaciar registros a Mutations.</p>
+
+    <div class='pre p1 fill-light mt0'>emptyLogs(context: ActionContext&#x3C;{JSON}>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='retrievepcs'>
+      retrievePCs
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de recuperar los equipos y enviarlos a Mutations.</p>
+
+    <div class='pre p1 fill-light mt0'>retrievePCs(context: ActionContext&#x3C;{JSON}>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='retrievedevices'>
+      retrieveDevices
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de recuperar los dispositivos y enviarlos a Mutations.</p>
+
+    <div class='pre p1 fill-light mt0'>retrieveDevices(context: ActionContext&#x3C;{JSON}>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='retrievelogs'>
+      retrieveLogs
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de recuperar los registros y enviarlos a Mutations.</p>
+
+    <div class='pre p1 fill-light mt0'>retrieveLogs(context: ActionContext&#x3C;{JSON}>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addpc'>
+      addPC
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de añadir un equipo a la base de datos y actualizar los registros.</p>
+
+    <div class='pre p1 fill-light mt0'>addPC(context: ActionContext&#x3C;{JSON}>, PC: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>PC</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El pc que se quiere añadir a la base de datos.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='adddevice'>
+      addDevice
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de añadir un dispositivo a la base de datos y actualizar los registros.</p>
+
+    <div class='pre p1 fill-light mt0'>addDevice(context: ActionContext&#x3C;{JSON}>, addedDevice: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>addedDevice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El dispositivo que se quiere añadir a la base de datos.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='pingearpc'>
+      pingearPC
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de escribir en la base de datos la acción de pingear un pc y actualizar los registros.</p>
+
+    <div class='pre p1 fill-light mt0'>pingearPC(context: ActionContext&#x3C;{JSON}>, PC: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>PC</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El pc que se quiere pingear.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='turnonpc'>
+      turnOnPC
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de escribir en la base de datos la acción de encender un pc y actualizar los registros.</p>
+
+    <div class='pre p1 fill-light mt0'>turnOnPC(context: ActionContext&#x3C;{JSON}>, PC: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>PC</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El pc que se quiere encender.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='deletepc'>
+      deletePC
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de eliminar un pc de la base de datos y actualizar los registros.</p>
+
+    <div class='pre p1 fill-light mt0'>deletePC(context: ActionContext&#x3C;{JSON}>, PC: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>PC</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El pc que se quiere eliminar.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='deletedevice'>
+      deleteDevice
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de eliminar un dispositivo de la base de datos y actualizar los registros.</p>
+
+    <div class='pre p1 fill-light mt0'>deleteDevice(context: ActionContext&#x3C;{JSON}>, deletedDevice: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>deletedDevice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El dispositivo que se quiere eliminar.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updatepc'>
+      updatePC
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de actualizar un pc de la base de datos y actualizar los registros.</p>
+
+    <div class='pre p1 fill-light mt0'>updatePC(context: ActionContext&#x3C;{JSON}>, PC: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>PC</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El pc que se quiere actualizar.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updatedevice'>
+      updateDevice
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de actualizar un dispositivo de la base de datos y actualizar los registros.</p>
+
+    <div class='pre p1 fill-light mt0'>updateDevice(context: ActionContext&#x3C;{JSON}>, updatedDevice: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>updatedDevice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El dispositivo que se quiere actualizar.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setdeviceid'>
+      setDeviceID
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada enviar el id del dispositivo seleccionado a Mutations.</p>
+
+    <div class='pre p1 fill-light mt0'>setDeviceID(context: ActionContext&#x3C;{JSON}>, id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>context</span> <code class='quiet'>(ActionContext&#x3C;{JSON}>)</code>
+	    El state de store y el contexto de la página que viene.
+
+          </div>
+          
+        </div>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    El id del dispositivo seleccionado.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='modificarestado'>
+      modificarEstado
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de llevar la orden de encendido y una actualización del equipo a Actions. También se encarga de empezar el timeout de conexión con el ESP32, de 30 segundos.</p>
+
+    <div class='pre p1 fill-light mt0'>modificarEstado(pc: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pc</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El equipo que se quiere encender.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='pingearpc'>
+      pingearPC
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de llevar la orden de encendido y una actualización del equipo a Actions. También se encarga de empezar el timeout de conexión con el ESP32, de 30 segundos.</p>
+
+    <div class='pre p1 fill-light mt0'>pingearPC(pc: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pc</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El equipo que se quiere pingear.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='deletepc'>
+      deletePC
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar la orden de borrado a Actions.</p>
+
+    <div class='pre p1 fill-light mt0'>deletePC(pc: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pc</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El equipo que se quiere eliminar.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='addpc'>
+      addPC
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar la orden de añadir un nuevo pc con sus datos a Actions.</p>
+
+    <div class='pre p1 fill-light mt0'>addPC()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setdetailmodal'>
+      setDetailModal
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de invocar el modal de ver detalles de un pc y cargarlo con sus datos.</p>
+
+    <div class='pre p1 fill-light mt0'>setDetailModal(pc: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pc</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El equipo que se quiere mostrar.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='seteditmodal'>
+      setEditModal
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de invocar el modal de editar un pc y cargarlo con sus datos.</p>
+
+    <div class='pre p1 fill-light mt0'>setEditModal(pc: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>pc</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El equipo que se quiere editar.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updatepc'>
+      updatePC
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar los datos de un pc actualizado a Actions.</p>
+
+    <div class='pre p1 fill-light mt0'>updatePC()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='created'>
+      created
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar la orden de mostrar los pcs a Actions cuando se carga la vista. También se encarga de cancelar el timeout de ping o encendido.</p>
+
+    <div class='pre p1 fill-light mt0'>created()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='handledelete'>
+      handleDelete
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de borrar la cuenta del usuario.</p>
+
+    <div class='pre p1 fill-light mt0'>handleDelete()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='handleexitoption'>
+      handleExitOption
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de cerrar sesión o mostrar el modal de confirmación de borrar cuenta.</p>
+
+    <div class='pre p1 fill-light mt0'>handleExitOption(index: int)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>index</span> <code class='quiet'>(int)</code>
+	    ID de la opción elegida.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='beforeeach'>
+      beforeEach
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de controlar el redireccionamiento según la autenticación.</p>
+
+    <div class='pre p1 fill-light mt0'>beforeEach</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>to</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    Página a la que se quiere acceder.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='deletedevice'>
+      deleteDevice
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar la orden de borrado a Actions.</p>
+
+    <div class='pre p1 fill-light mt0'>deleteDevice(deleteDevice: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>deleteDevice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El dispositivo que se quiere encender.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='adddevice'>
+      addDevice
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar la orden de añadir un nuevo dispositivo con sus datos a Actions.</p>
+
+    <div class='pre p1 fill-light mt0'>addDevice()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='seteditmodal'>
+      setEditModal
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de invocar el modal de editar un dispositivo y cargarlo con sus datos.</p>
+
+    <div class='pre p1 fill-light mt0'>setEditModal(editDevice: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>editDevice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El dispositivo que se quiere editar.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setdeviceid'>
+      setDeviceID
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar el ID del dispositivo seleccionado a Actions y redirigir a la vista de equipos.</p>
+
+    <div class='pre p1 fill-light mt0'>setDeviceID(id: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>id</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String">string</a>)</code>
+	    El id del dispositivo seleccionado.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='updatedevice'>
+      updateDevice
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar los datos de un dispositivo actualizado a Actions.</p>
+
+    <div class='pre p1 fill-light mt0'>updateDevice()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='setdetailmodal'>
+      setDetailModal
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de invocar el modal de ver detalles de un dispositivo y cargarlo con sus datos.</p>
+
+    <div class='pre p1 fill-light mt0'>setDetailModal(detailDevice: <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+    <div class='py1 quiet mt1 prose-big'>Parameters</div>
+    <div class='prose'>
+      
+        <div class='space-bottom0'>
+          <div>
+            <span class='code bold'>detailDevice</span> <code class='quiet'>(<a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON">JSON</a>)</code>
+	    El dispositivo que se quiere mostrar.
+
+          </div>
+          
+        </div>
+      
+    </div>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='created'>
+      created
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar la orden de mostrar los dispositivos a Actions cuando se carga la vista.</p>
+
+    <div class='pre p1 fill-light mt0'>created()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='handlesuccess'>
+      handleSuccess
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de redirigir al usuario a la vista de dispositivos.</p>
+
+    <div class='pre p1 fill-light mt0'>handleSuccess()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='loginuser'>
+      loginUser
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de acceder con las credenciales del usuario.</p>
+
+    <div class='pre p1 fill-light mt0'>loginUser()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='handlesuccess'>
+      handleSuccess
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de redirigir al usuario a la vista de dispositivos.</p>
+
+    <div class='pre p1 fill-light mt0'>handleSuccess()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='signuprequest'>
+      signupRequest
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de crear una nueva cuenta.</p>
+
+    <div class='pre p1 fill-light mt0'>signupRequest()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+          
+          <section class='p2 mb2 clearfix bg-white minishadow'>
+
+  
+  <div class='clearfix'>
+    
+    <h3 class='fl m0' id='created'>
+      created
+    </h3>
+    
+    
+  </div>
+  
+
+  <p>Función encargada de enviar la orden de mostrar los registros a Actions cuando se carga la vista.</p>
+
+    <div class='pre p1 fill-light mt0'>created()</div>
+  
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+</section>
+
+          
+        
+      </div>
+    </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/split.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>

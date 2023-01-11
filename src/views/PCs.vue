@@ -244,6 +244,7 @@ export default {
       detailDialog: false,
 
       timer: null,
+      timerPing: null,
 
       loading5: false,
 
@@ -324,7 +325,7 @@ export default {
         result: "processing",
       });
       this.$store.dispatch("pingearPC", pc);
-      this.timer = setTimeout(() => {
+      this.timerPing = setTimeout(() => {
         console.log("No se ha obtenido respuesta");
         this.$store.dispatch("updatePC", {
           title: pc.title,
@@ -436,6 +437,7 @@ export default {
         "value",
         (snapshot) => {
           clearTimeout(this.timer);
+          clearTimeout(this.timerPing);
           console.log("Acabo de cancelar el timeout.");
           console.log("VALOR DE RESULT ESCUCHADA: ", snapshot.val());
         },
